@@ -1,0 +1,43 @@
+require 'socket'
+Dir.glob('lib/**/*.rb').each do |file|
+  require file
+end
+
+module WebServer
+  class Server
+    DEFAULT_PORT = 2468
+    ROOT_DIRECTORY='./public_html'
+    CONFIG_FILE='config/httpd.conf'
+
+    def initialize(options={})
+      # Set up WebServer's configuration files and logger here
+      # Do any preparation necessary to allow threading multiple requests
+	@file=File.new('config/httpd.conf','r')
+	
+    end
+
+    def start
+      # Begin your 'infinite' loop, reading from the TCPServer, and
+      # processing the requests as connections are made
+	server = TCPServer.new('127.0.0.1',DEFAULT_PORT)
+	loop do
+	 socket = server.accept
+	 request = socket.gets
+ 	 STDERR.puts request
+	 response = "Hello World\n"
+ 	 socket.print "HTTP/ 200 OK\r\n" +
+	 	      "Content-Type: test/plain\r\n" +
+		      "Content-Length: #{response.bytesize}\r\n" +
+		      "Connection: close\r\n"
+
+	 socket.print "\r\n"
+ 	 socket.print response
+	 socket.close
+	end 
+    end
+
+    private
+  end
+end
+
+WebServer::Server.new.start
