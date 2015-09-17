@@ -34,6 +34,7 @@ module WebServer
           request = client.gets
           @worker = Worker.new(request)         
           # initialize request object
+          #this is
           @request_o = Request.new(request)
           #conflict
           response = "Hello World\n"
