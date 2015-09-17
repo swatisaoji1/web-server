@@ -34,6 +34,7 @@ module WebServer
           request = client.gets
           @worker = Worker.new(request)         
           # initialize request object
+          #this is jhjgjh jhgjh
           @request_o = Request.new(request)
           
           response = "Hello World\n"
