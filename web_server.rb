@@ -35,7 +35,7 @@ module WebServer
           # initialize request object
           
           @request_o = Request.new(request)
-          
+          #conflict
           response = "Hello World\n"
           client.print "HTTP/1.1 200 OK\r\n" +
                "Content-Type: text/plain\r\n" +
