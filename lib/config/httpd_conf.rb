@@ -63,14 +63,22 @@ module WebServer
 
     # Returns an array of ScriptAlias directories
     def script_aliases
+	a=[]
 	@config_map["ScriptAlias"].each do |k,v|
-		return "#{v}"
+	 a << k
 	end
+	return a
     end
 
     # Returns the aliased path for a given ScriptAlias directory
     def script_alias_path(path)
-	
+	@config_map["ScriptAlias"].each do |k,v|
+		if path=="#{k}"
+		 return v[0]
+		else
+		 return nil
+		end
+	end
     end
 
     # Returns an array of Alias directories
@@ -84,7 +92,13 @@ module WebServer
 
     # Returns the aliased path for a given Alias directory
     def alias_path(path)
-		
+	@config_map["Alias"].each do |k,v|
+                if path=="#{k}"
+                 return v[0]
+                else
+                 return nil
+                end
+        end
     end
  end
 end
