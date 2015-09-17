@@ -52,7 +52,9 @@ module WebServer
 
     private
     
-    
+    def test
+      
+    end
   end
 end
 
