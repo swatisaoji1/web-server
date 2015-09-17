@@ -32,8 +32,8 @@ module WebServer
       loop do
         Thread.start(server.accept) do |client|
           request = client.gets
+          @worker = Worker.new(request)         
           # initialize request object
-          
           @request_o = Request.new(request)
           
           response = "Hello World\n"
@@ -51,10 +51,8 @@ module WebServer
   
 
     private
-    
-    def test
-      
-    end
+  
+  #here there is comment
   end
 end
 
