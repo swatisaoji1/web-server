@@ -15,6 +15,7 @@ module WebServer
       @request_content.each_line do |line|
         @request_content_array.push(line)
       end
+      @length_con = @request_content_array.length
       @headers = Hash.new
       parse
     end
@@ -33,7 +34,7 @@ module WebServer
     # parameters
     def parse
       parse_request_line
-      until blank_line? do
+      while @current_index < @length_con && !blank_line? do
         header = @request_content_array[@current_index].strip
         @current_index += 1
         while space_in_beginning? && !blank_line? do
@@ -49,7 +50,9 @@ module WebServer
         puts '--------------'    
       end
       if @current_index < @request_content_array.length  then
-        @body = @request_content_array[@current_index..-1].join(" ")
+        newarray = @request_content_array[@current_index..-1].collect{|x| x.lstrip}
+        @body = newarray.join()
+        @body.strip!
       else
         @body = ""
       end
@@ -100,7 +103,7 @@ module WebServer
         @params[pair.split('=').first] = pair.split('=').last
       end
     end
-    
+ 
     
   end
 end
