@@ -27,9 +27,8 @@ module WebServer
 	if (@config_map.has_key?(extension))
 	 return @config_map[extension]
 	else
-	 return @config_map["txt"]
-	end
+	  return "text/plain"
+	 end
     end
-
   end
 end
