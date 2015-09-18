@@ -84,51 +84,51 @@ module WebServer
 
     # Returns the name of the AccessFile 
     def access_file_name
-	if @config_map.has_key?("AccessFile")
+  	   if @config_map.has_key?("AccessFile")
          @config_map["AccessFile"].each do |k,v|
           return "#{v}"
          end
-        end
+      end
     end
 
     # Returns an array of ScriptAlias directories
     def script_aliases
-	a=[]
-	@config_map["ScriptAlias"].each do |k,v|
-	 a << k
-	end
-	return a
+    	a=[]
+      	@config_map["ScriptAlias"].each do |k,v|
+      	 a << k
+      	end
+    	return a
     end
 
     # Returns the aliased path for a given ScriptAlias directory
     def script_alias_path(path)
-	@config_map["ScriptAlias"].each do |k,v|
-		if path=="#{k}"
-		 return v[0]
-		else
-		 return nil
-		end
-	end
+    	@config_map["ScriptAlias"].each do |k,v|
+    		if path=="#{k}"
+    		 return v[0]
+    		end
+    	end
     end
 
-    # Returns an array of Alias directories
-    def aliases
-      	if @config_map.has_key?("Alias")
-      	 @config_map["Alias"].each do |k,v|
-	  puts "#{v}"
-  	 end
-	end
+  # Returns an array of Alias directories
+  def aliases
+    array_aliases =[]
+    	if @config_map.has_key?("Alias")
+    	 @config_map["Alias"].each do |k,v|
+      	 array_aliases << k
+  	   end
+  	   return array_aliases
+	   end
    end
 
     # Returns the aliased path for a given Alias directory
     def alias_path(path)
-	@config_map["Alias"].each do |k,v|
-                if path=="#{k}"
-                 return v[0]
-                else
-                 return nil
-                end
+	    @config_map["Alias"].each do |k,v|
+        if path=="#{k}"
+         return v[0]
         end
+      end
     end
+    
+    
  end
 end
