@@ -24,11 +24,11 @@ module WebServer
     
     # Returns the mime type for the specified extension
     def for_extension(extension)
-	if (@config_map.has_key?(extension))
-	 return @config_map[extension]
-	else
-	  return "text/plain"
-	 end
+  	if (@config_map.has_key?(extension))
+  	 return @config_map[extension]
+  	else
+  	  return "text/plain"
+  	 end
+      end
     end
   end
-end
