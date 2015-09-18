@@ -38,16 +38,10 @@ module WebServer
         header = @request_content_array[@current_index].strip
         @current_index += 1
         while space_in_beginning? && !blank_line? do
-           header += ' '
+          header += ' '
           header += @request_content_array[@current_index].strip
-          puts header
-          puts header.class
           @current_index += 1
-        end
-        puts 'I am a header'
-        puts header
-        parse_header(header)
-        puts '--------------'    
+        end  
       end
       if @current_index < @request_content_array.length  then
         newarray = @request_content_array[@current_index..-1].collect{|x| x.lstrip}
@@ -85,12 +79,9 @@ module WebServer
     
     def parse_header(header_line)
         parts =  header_line.partition(":")
-        puts "inspecting parts"
-        puts parts.inspect
         h_key = parts[0].sub('-', '_')
         h_key = h_key.upcase
         @headers[h_key] = parts[2].strip
-        puts @headers.inspect
     end
 
     def parse_body(body_line)
