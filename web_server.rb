@@ -28,26 +28,28 @@ module WebServer
       # Begin your 'infinite' loop, reading from the TCPServer, and
       # processing the requests as connections are made
       server = TCPServer.new('127.0.0.1', DEFAULT_PORT) 
+      puts server.inspect
+      puts server.class
       print "listening..."
       loop do
-        Thread.start(server.accept) do |client|
-          request = client.gets
-          @worker = Worker.new(request)         
+        Thread.start(server.accept) do |socket|
+          # request = socket.gets
+          @worker = Worker.new(socket)         
           # initialize request object
-          #this is
           @request_o = Request.new(request)
-          #conflict
+          #@request_o = Request.new(request)  // moved to worker
+          
+
           response = "Hello World\n"
-          client.print "HTTP/1.1 200 OK\r\n" +
+          socket.print "HTTP/1.1 200 OK\r\n" +
                "Content-Type: text/plain\r\n" +
                "Content-Length: #{response.bytesize}\r\n" +
                "Connection: close\r\n"
-          client.print "\r\n"
-          client.print response
-          client.close
+          socket.print "\r\n"
+          socket.print response
+          socket.close
         end
       end
-      
     end
   
 

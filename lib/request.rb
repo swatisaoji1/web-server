@@ -82,6 +82,9 @@ module WebServer
         h_key = parts[0].sub('-', '_')
         h_key = h_key.upcase
         @headers[h_key] = parts[2].strip
+        ENV[h_key] = parts[2].strip
+        puts ENV.inspect
+        puts @headers.inspect
     end
 
     def parse_body(body_line)

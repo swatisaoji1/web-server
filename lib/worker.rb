@@ -8,11 +8,14 @@ module WebServer
   class Worker
     # Takes a reference to the client socket and the logger object
     def initialize(client_socket, server=nil)
-      
+      puts "initializing request.. in worker"
+      request = client_socket.gets
+      @request_o = Request.new(request)
     end
 
     # Processes the request
     def process_request
+      
     end
   end
 end
