@@ -10,14 +10,9 @@ module WebServer
     end
     
     def get_resource
-      #lets return a dummy resource
-       puts "path was.."
-       puts @path
        replace_script_aliases
-       replace_aliases
-       puts "path is now.."
-       puts @path
-      return "/home/swati/clones from git/Server_Team_C/Server_C/public_html/test.html"
+       replace_aliases@path
+       return @path
     end
     
     def make_resource
@@ -25,23 +20,12 @@ module WebServer
     end
     def replace_script_aliases
       @conf.script_aliases.each do |s_aliases|
-        puts "replacing Script Aliases...."
-        puts "replacing.."
-        puts s_aliases
-        puts "with.."
-        puts @conf.script_alias_path(s_aliases)
-        @path.gsub!(s_aliases, @conf.script_alias_path(s_aliases))
-        
+        @path.gsub!(s_aliases, @conf.script_alias_path(s_aliases)) 
       end
     end
     
     def replace_aliases
-       puts "replacing Aliases...."
        @conf.aliases.each do |aliases|
-         puts "replacing.."
-         puts aliases
-         puts "with.."
-         puts @conf.alias_path(aliases)
          @path.gsub!(aliases,@conf.alias_path(aliases)) 
        end
     end
@@ -54,14 +38,19 @@ module WebServer
     
     def is_alias?
       @conf.aliases.each do |aliase|
-        p aliase
-        output = @request.uri.include?(aliase)
-        p output
-        return output
-        
+        @request.uri.include?(aliase)
       end  
     end
     
+    def get_mime_type
+      # if 
+      if !File.directory?(@path) then
+        file_extension = File.extname(@path)
+        @mimes.for_extension(file_extension)
+      else
+        "text/plain"
+      end
+    end
     
     
     
