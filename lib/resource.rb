@@ -43,7 +43,6 @@ module WebServer
     end
     
     def get_mime_type
-      # if 
       if !File.directory?(@path) then
         file_extension = File.extname(@path)
         @mimes.for_extension(file_extension)

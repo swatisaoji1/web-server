@@ -4,7 +4,7 @@ require_relative 'configuration'
 module WebServer
   class MimeTypes < Configuration
     def initialize(file_content)
-	@config_map = Hash.new
+	  @config_map = Hash.new
         file_content.each_line do |line|
     
         line = line.gsub(/#(.*)/, '')
@@ -19,7 +19,7 @@ module WebServer
            end
           end
         end
-        end
+      end
     end
     
     # Returns the mime type for the specified extension

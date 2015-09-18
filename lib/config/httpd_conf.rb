@@ -107,6 +107,7 @@ module WebServer
     		 return v[0]
     		end
     	end
+    	return nil
     end
 
   # Returns an array of Alias directories
@@ -127,6 +128,7 @@ module WebServer
          return v[0]
         end
       end
+      return nil
     end
     
     
