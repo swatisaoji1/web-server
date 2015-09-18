@@ -5,13 +5,14 @@ end
 
 module WebServer
   class Server
-    DEFAULT_PORT = 2468
+    DEFAULT_PORT = 2469
     ROOT_DIRECTORY = './public_html' # will eventually come from config
     CONFIG_FILE = 'config/httpd.conf'
 
     def initialize(options={})
       # Set up WebServer's configuration files and logger here
       # Do any preparation necessary to allow threading multiple requests
+      
       
       #TODO need to handle missing config / mime file to return server fault
       @file = File.open('config/httpd.conf', 'r') 
@@ -31,7 +32,11 @@ module WebServer
       loop do
         Thread.start(server.accept) do |client|
           request = client.gets
-          puts request
+          @worker = Worker.new(request)         
+          # initialize request object
+          #this is
+          @request_o = Request.new(request)
+          #conflict
           response = "Hello World\n"
           client.print "HTTP/1.1 200 OK\r\n" +
                "Content-Type: text/plain\r\n" +
@@ -47,8 +52,8 @@ module WebServer
   
 
     private
-    
-    
+  
+  #here there is comment
   end
 end
 
