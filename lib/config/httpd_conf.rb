@@ -3,8 +3,38 @@ require_relative 'configuration'
 # Parses, stores, and exposes the values from the httpd.conf file
 module WebServer
   class HttpdConf < Configuration
-    def initialize(httpd_file_content)
-	super(httpd_file_content)
+    def initialize(file_content)
+	    #read config files here
+      @config_map = Hash.new
+      file_content.each_line do |line|
+        @inner_hash = Hash.new
+        line = line.gsub(/#(.*)/, '')
+        words = line.scan(/\S+/)
+        if(!words.empty?)
+          words.map { |word|   word.gsub!(/\A"|"\Z/, '') }
+          @count = words.length
+          w1 = words.shift
+          w2 = words.shift
+          
+          
+          if (@count>2)
+           @inner_hash[w2]=words
+           res=words
+          else
+           @inner_hash[w1]=w2
+           res=w2
+          end
+          
+          #puts @config2_map.to_s
+          if(@config_map[w1].nil?)
+           @config_map[w1]=@inner_hash
+          else
+           @config_map[w1].merge!(@inner_hash)
+          end
+        end
+        puts res.to_s 
+      end
+      puts @config_map.inspect
     end
 
     # Returns the value of the ServerRoot
@@ -27,20 +57,20 @@ module WebServer
 
     # Returns the directory index file
     def directory_index
-	if @config_map.has_key?("DirectoryIndex")
-	 @config_map["DirectoryIndex"].each do |k,v|
-          return "#{v}"
-         end
-	end
+    	if @config_map.has_key?("DirectoryIndex")
+    	 @config_map["DirectoryIndex"].each do |k,v|
+         return "#{v}"
+        end
+    	end
     end
 
     # Returns the *integer* value of Listen
     def port
-	if @config_map.has_key?("Listen")
-	 @config_map["Listen"].each do |k,v|
+    	if @config_map.has_key?("Listen")
+    	 @config_map["Listen"].each do |k,v|
           return "#{v}".to_i
-         end
-	end
+        end
+    	end
     end
 
     # Returns the value of LogFile

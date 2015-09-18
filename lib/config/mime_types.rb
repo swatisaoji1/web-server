@@ -10,5 +10,6 @@ module WebServer
     # Returns the mime type for the specified extension
     def for_extension(extension)
     end
+
   end
 end
