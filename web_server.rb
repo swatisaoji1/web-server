@@ -5,7 +5,9 @@ end
 
 module WebServer
   class Server
-    DEFAULT_PORT = 2469
+    
+    attr_accessor :httpd_conf, :mime_types
+    DEFAULT_PORT = 2468
     ROOT_DIRECTORY = './public_html' # will eventually come from config
     CONFIG_FILE = 'config/httpd.conf'
 
@@ -34,20 +36,18 @@ module WebServer
       loop do
         Thread.start(server.accept) do |socket|
           # request = socket.gets
-          @worker = Worker.new(socket)         
-          # initialize request object
-          @request_o = Request.new(request)
-          #@request_o = Request.new(request)  // moved to worker
-          
-
-          response = "Hello World\n"
+          @worker = Worker.new(socket, self)   
+          @worker.process_request
+          response = @worker.response
+          puts response
           socket.print "HTTP/1.1 200 OK\r\n" +
-               "Content-Type: text/plain\r\n" +
-               "Content-Length: #{response.bytesize}\r\n" +
-               "Connection: close\r\n"
-          socket.print "\r\n"
+                "Content-Type: text/html\r\n" +
+                "Content-Length: #{response.bytesize}\r\n" +
+                "Connection: close\r\n"
+          socket.print "\r\n" 
           socket.print response
           socket.close
+          
         end
       end
     end

@@ -18,11 +18,11 @@ module WebServer
 
     # Returns the value of the DocumentRoot
     def document_root
-	if @config_map.has_key?("DocumentRoot")
-	 @config_map["DocumentRoot"].each do |k,v|
-          return "#{v}"
-         end
-	end
+    	if @config_map.has_key?("DocumentRoot")
+    	 @config_map["DocumentRoot"].each do |k,v|
+        return "#{v}"
+       end
+    	end
     end
 
     # Returns the directory index file
