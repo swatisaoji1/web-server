@@ -53,6 +53,7 @@ module WebServer
         return "#{v}"
        end
     	end
+    	return ""
     end
 
     # Returns the directory index file
@@ -62,6 +63,7 @@ module WebServer
          return "#{v}"
         end
     	end
+    	return ""
     end
 
     # Returns the *integer* value of Listen

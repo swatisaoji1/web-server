@@ -7,13 +7,57 @@ module WebServer
       @path = request.uri   
       @conf = httpd_conf
       @mimes = mimes
+      @resolved_path =""
+      
     end
     
-    def get_resource
-       replace_script_aliases
-       replace_aliases@path
-       return @path
+    
+    def full_uri
+      full_path = File.join(@conf.document_root, @request.uri)
+      if File.file?(full_path) 
+         @request.uri
+      else
+        File.join(@request.uri, @conf.directory_index)
+      end
+      
+      
     end
+    def resolve
+      
+      if !script_aliased? && !aliased?
+        puts "check document root"
+        puts @conf.document_root
+        @resolved_path = File.join(@conf.document_root, self.full_uri)
+      end
+      if script_aliased?
+        replace_script_aliases
+        @resolved_path = @path
+      end
+      if aliased?
+        replace_aliases
+        @resolved_path = @path
+      end
+      return @resolved_path
+    end
+    
+    
+    
+    
+    def get_resource
+       self.resolve
+       puts @resolved_path
+       if File.exists?(@resolved_path)
+        
+        if File.directory?(@resolved_path)
+          @resolved_path = File.join(@resolved_path, @conf.directory_index)
+        end
+      else
+        @resolved_path = ""
+      end
+       return @resolved_path
+    end
+    
+    
     
     def make_resource
       
@@ -30,16 +74,22 @@ module WebServer
        end
     end
     
-    def is_script_alias?
+    def script_aliased?
+      found = false
       @conf.script_aliases.each do |s_aliases|
-        @request.uri.include?(s_aliases)
+        found = @request.uri.include?(s_aliases)
+        if found == true then break end
       end
+      return found
     end
     
-    def is_alias?
+    def aliased?
+      found = false
       @conf.aliases.each do |aliase|
-        @request.uri.include?(aliase)
-      end  
+        found= @request.uri.include?(aliase)
+        if found == true then break end
+      end
+      return found
     end
     
     def get_mime_type
