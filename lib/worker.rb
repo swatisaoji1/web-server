@@ -7,7 +7,7 @@ require_relative 'response'
 module WebServer
   class Worker
     
-    attr_reader :response, :server, :client_socket
+    attr_reader :response, :server, :client_socket, :logger
     # Takes a reference to the client socket and the logger object
     def initialize(client_socket, server=nil)
       puts "initializing request.. in worker"
@@ -26,16 +26,12 @@ module WebServer
       # create a response object
       @response_o = Response::Factory.create(@res)
       @response = @response_o.body
-
+      # create a logger object
+      @logger = Logger.new(@res.httpd_conf.log_file)
+      @logger.log(@request_o,@response)
+      @logger.close
+      @client_socket.puts(@response.to_s)      
       
-      
-    end
-    
-    
-    
-    
-    
-    
-    
+    end    
   end
 end
