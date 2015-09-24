@@ -16,15 +16,17 @@ module WebServer
   	 if File.exists?(@log_file_path)
   	  File.open(@log_file_path,"a")
   	 else
-  	  File.new("log.txt","w")
+	  expanded = File.expand_path(__FILE__)
+	  full_path = expanded + "log.txt"
+  	  File.new(full_path,"a")
   	 end
   	end
    end
     # Log a message using the information from Request and 
     # Response objects
     def log(request, response)
-    	log_file.write("#{request.body}\n")
-    	log_file.write("#{response.class}\n")
+    	log_file.write("Hello!\n")
+    	log_file.write("Hi Hi\n")
     end
 
     # Allow the consumer of this class to flush and close the 
