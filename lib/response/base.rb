@@ -39,7 +39,6 @@ module WebServer
         puts res_file
         f = File.open(res_file, "r")
         f.each_line do |line|
-          puts line
           body << line
         end
         f.close

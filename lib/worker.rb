@@ -26,11 +26,14 @@ module WebServer
       # create a response object
       @response_o = Response::Factory.create(@res)
       @response = @response_o.body
+      puts 'printing...'
+      puts @response
+      puts 'printing...'
       # create a logger object
-      @logger = Logger.new(@res.httpd_conf.log_file)
+      @logger = Logger.new(@server.httpd_conf.log_file)
       @logger.log(@request_o,@response)
       @logger.close
-      @client_socket.puts(@response.to_s)      
+      #@client_socket.puts(@response.to_s)      
       
     end    
   end

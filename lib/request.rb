@@ -42,6 +42,7 @@ module WebServer
           header += @request_content_array[@current_index].strip
           @current_index += 1
         end  
+        parse_header(header)
       end
       if @current_index < @request_content_array.length  then
         newarray = @request_content_array[@current_index..-1].collect{|x| x.lstrip}
@@ -50,6 +51,9 @@ module WebServer
       else
         @body = ""
       end
+      puts 'inspecting ..@headers'
+      puts @headers.inspect
+      puts '========'
     end
 
 
@@ -90,6 +94,9 @@ module WebServer
     def parse_body(body_line)
     end
 
+
+    # creates a hash of param pairs and hash is empty when no parameters 
+    # TODO put check
     def parse_params(param_str)
       param_pairs = param_str.split('&')
       @params = Hash.new

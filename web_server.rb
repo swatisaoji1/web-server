@@ -39,7 +39,6 @@ module WebServer
           @worker = Worker.new(socket, self)   
           @worker.process_request
           response = @worker.response
-          puts response
           socket.print "HTTP/1.1 200 OK\r\n" +
                 "Content-Type: text/html\r\n" +
                 "Content-Length: #{response.bytesize}\r\n" +

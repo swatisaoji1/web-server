@@ -64,7 +64,7 @@ module WebServer
     end
     def replace_script_aliases
       @conf.script_aliases.each do |s_aliases|
-        @path.gsub!(s_aliases, @conf.script_alias_path(s_aliases)) 
+        @path.gsub!(s_aliases, @conf.script_alias_path(s_aliases))
       end
     end
     
@@ -77,7 +77,7 @@ module WebServer
     def script_aliased?
       found = false
       @conf.script_aliases.each do |s_aliases|
-        found = @request.uri.include?(s_aliases)
+        found = @request.uri.start_with?(s_aliases)
         if found == true then break end
       end
       return found
@@ -86,7 +86,7 @@ module WebServer
     def aliased?
       found = false
       @conf.aliases.each do |aliase|
-        found= @request.uri.include?(aliase)
+        found= @request.uri.start_with?(aliase)
         if found == true then break end
       end
       return found
