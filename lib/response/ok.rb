@@ -2,11 +2,14 @@ module WebServer
   module Response
     # Class to handle 200 responses
     class OK < Base
+      attr_accessor :code_no
+      
       def initialize(resource, options={})
         super(resource)
         puts "initializing ok class"
         @file_path = resource.resolved_path
         @content = nil
+        @code_no = 200
       end
      
       
@@ -16,7 +19,7 @@ module WebServer
       end
       
       def code
-        @code ||= WebServer::Response::RESPONSE_CODES[200]
+        @code ||= WebServer::Response::RESPONSE_CODES[@code_no]
       end
       
       
@@ -30,7 +33,7 @@ module WebServer
       # create header
       def header
         header_string = ""
-        header_string << "HTTP/1.1 200 #{code}\r\n"
+        header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
         # TODO pick server and date from the common headers
         header_string << "Server: Team C Swati and Harini\r\n"
         header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}"
