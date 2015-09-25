@@ -35,7 +35,8 @@ module WebServer
       
       def create_body
         body = ''
-        res_file = @resource.get_resource
+        # res_file = @resource.get_resource
+        res_file = @resource.resolved_path
         puts res_file
         f = File.open(res_file, "r")
         f.each_line do |line|

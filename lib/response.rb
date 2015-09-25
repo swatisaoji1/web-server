@@ -24,7 +24,38 @@ module WebServer
 
     module Factory
       def self.create(resource)
-        Response::Base.new(resource)
+        resource.make_resource
+        if !resource.request.supported_verbs.include?(resource.request.http_method) 
+          puts 'handling unsupported request verb'
+          return Response::BadRequest.new(resource)
+        else
+          handle_valid_request(resource)
+        end
+        
+        
+        
+      end
+
+
+      def self.handle_valid_request(res)
+        puts 'handling valid request verb'
+        full_path = res.resolved_path
+        if File.exists?(full_path)
+          if res.script_aliased?
+            puts "run script"
+            
+          else
+            puts "returns file"
+            Response::Base.new(res)
+          end
+        else
+          Response::NotFound.new(res)
+        end  
+      end
+      
+      
+      def self.handle_cgi
+        
       end
 
       def self.error(resource, error_object)

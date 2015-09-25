@@ -1,6 +1,6 @@
 module WebServer
   class Resource
-    attr_reader :request, :conf, :mimes
+    attr_reader :request, :conf, :mimes , :resolved_path, :final_uri
 
     def initialize(request, httpd_conf, mimes)
       @request = request 
@@ -8,25 +8,24 @@ module WebServer
       @conf = httpd_conf
       @mimes = mimes
       @resolved_path =""
+      @final_uri = nil
       
     end
     
     
     def full_uri
-      full_path = File.join(@conf.document_root, @request.uri)
-      if File.file?(full_path) 
-         @request.uri
-      else
-        File.join(@request.uri, @conf.directory_index)
+      @final_uri ||= begin
+        full_path = File.join(@conf.document_root, @request.uri)
+        if File.file?(full_path) 
+          @request.uri
+        else
+          File.join(@request.uri, @conf.directory_index)
+        end
       end
-      
-      
     end
+    
     def resolve
-      
       if !script_aliased? && !aliased?
-        puts "check document root"
-        puts @conf.document_root
         @resolved_path = File.join(@conf.document_root, self.full_uri)
       end
       if script_aliased?
@@ -41,8 +40,7 @@ module WebServer
     end
     
     
-    
-    
+=begin    
     def get_resource
        self.resolve
        puts @resolved_path
@@ -56,21 +54,34 @@ module WebServer
       end
        return @resolved_path
     end
-    
+=end   
     
     
     def make_resource
+      self.resolve
+       puts @resolved_path
+       if File.exists?(@resolved_path)
+        
+        if File.directory?(@resolved_path)
+          @resolved_path = File.join(@resolved_path, @conf.directory_index)
+        end
+      else
+        @resolved_path = ""
+      end
+       return @resolved_path
       
     end
+    
+    
     def replace_script_aliases
       @conf.script_aliases.each do |s_aliases|
-        @path.gsub!(s_aliases, @conf.script_alias_path(s_aliases))
+        @path.sub!(s_aliases, @conf.script_alias_path(s_aliases))
       end
     end
     
     def replace_aliases
        @conf.aliases.each do |aliases|
-         @path.gsub!(aliases,@conf.alias_path(aliases)) 
+         @path.sub!(aliases,@conf.alias_path(aliases)) 
        end
     end
     
