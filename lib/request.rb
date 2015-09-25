@@ -1,13 +1,14 @@
 # The Request class encapsulates the parsing of an HTTP Request
 module WebServer
   class Request
-    attr_accessor :http_method, :uri, :version, :headers, :body, :params
+    attr_accessor :http_method, :uri, :version, :headers, :body, :params, :supported_verbs
     
     
     # Request creation receives a reference to the socket over which
     # the client has connected
     def initialize(socket)
       # Perform any setup, then parse the request
+      @supported_verbs = ["GET", "HEAD", "POST", "PUT"]
       @current_index = 0
       #@request_content = String.new("GET /?param1=one HTTP/1.1\r\nHost: localhost\r\nContent-Length: 40\n  this is part of previous header\r\n \r\nThis is the body.\r\nWith multiple lines...")
       @request_content = socket
