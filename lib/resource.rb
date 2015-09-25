@@ -17,9 +17,9 @@ module WebServer
       @final_uri ||= begin
         full_path = File.join(@conf.document_root, @request.uri)
         if File.file?(full_path) 
-          @request.uri
+          @final_uri = @request.uri
         else
-          File.join(@request.uri, @conf.directory_index)
+          @final_uri = File.join(@request.uri, @conf.directory_index)
         end
       end
     end
