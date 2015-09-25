@@ -25,7 +25,7 @@ module WebServer
       # @res.get_resource
       # create a response object
       @response_o = Response::Factory.create(@res)
-      @response = @response_o.body
+      @response = @response_o.content
       # create a logger object
       @logger = Logger.new(@server.httpd_conf.log_file)
       @logger.log(@request_o,@response)

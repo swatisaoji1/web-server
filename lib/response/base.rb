@@ -9,7 +9,6 @@ module WebServer
       def initialize(resource, options={})
         @resource = resource
         @version = resource.request.version
-        @body = create_body
       end
 
       def to_s

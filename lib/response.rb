@@ -47,7 +47,7 @@ module WebServer
             
           else
             puts "returns file"
-            Response::Base.new(res)
+            Response::OK.new(res)
           end
         else
           Response::NotFound.new(res)
