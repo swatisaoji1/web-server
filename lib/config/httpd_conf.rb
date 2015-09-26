@@ -90,6 +90,7 @@ module WebServer
           return "#{v}"
          end
       end
+      return ".htaccess"
     end
 
     # Returns an array of ScriptAlias directories

@@ -26,9 +26,9 @@ module WebServer
     end
     
     def resolve
+      full_uri
       if !script_aliased? && !aliased?
-        
-        @resolved_path = File.join(@conf.document_root, full_uri)
+        @resolved_path = File.join(@conf.document_root, @final_uri)
       end
       if script_aliased?
         replace_script_aliases

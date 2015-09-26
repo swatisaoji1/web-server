@@ -25,7 +25,6 @@ module WebServer
     module Factory
       def self.create(resource)
         resource.make_resource
-        
         if !resource.request.supported_verbs.include?(resource.request.http_method) 
           puts 'handling unsupported request verb'
           return Response::BadRequest.new(resource)
@@ -39,10 +38,11 @@ module WebServer
         puts 'handling valid request verb'
         full_path = res.resolved_path
         if File.exists?(full_path)
-          if res.script_aliased?
-            self.handle_cgi(full_path, res) 
+          auth = WebServer::AuthBrowser.new(res, res.conf.access_file_name, res.conf.document_root)
+          if auth.protected?
+            self.handle_authorized_access(full_path, auth, res)
           else
-            Response::OK.new(res)
+            self.handle_normal_access(full_path, res)
           end
         else
           Response::NotFound.new(res)
@@ -59,7 +59,23 @@ module WebServer
         return responce_obj
       end
       
-
+      def self.handle_normal_access(full_path, res)
+        if res.script_aliased?
+          self.handle_cgi(full_path, res) 
+        else
+          Response::OK.new(res)
+        end
+      end
+      
+      def self.handle_authorized_access(full_path, auth, res)
+        if auth.authorized?
+          self.handle_normal_access(full_path, res)
+        else
+          Response::Unauthorized.new(res)
+        end
+      end
+      
+      
       def self.error(resource, error_object)
         Response::ServerError.new(resource, exception: error_object)
       end

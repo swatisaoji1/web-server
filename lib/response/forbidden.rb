@@ -3,6 +3,7 @@ module WebServer
     # Class to handle 403 responses
     class Forbidden < Base
       def initialize(resource, options={})
+        super(resource)
       end
     end
   end
