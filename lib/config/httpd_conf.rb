@@ -62,7 +62,7 @@ module WebServer
          return "#{v}"
         end
     	end
-    	return ""
+    	return "index.html"
     end
 
     # Returns the *integer* value of Listen

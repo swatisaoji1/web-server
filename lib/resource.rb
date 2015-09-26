@@ -17,16 +17,18 @@ module WebServer
       @final_uri ||= begin
         full_path = File.join(@conf.document_root, @path)
         if File.file?(full_path) 
-          @final_uri = @request.uri
+          @request.uri
         else
-          @final_uri = File.join(@path, @conf.directory_index)
+          File.join(@path, @conf.directory_index)
         end
       end
+      @final_uri 
     end
     
     def resolve
       if !script_aliased? && !aliased?
-        @resolved_path = File.join(@conf.document_root, self.full_uri)
+        
+        @resolved_path = File.join(@conf.document_root, full_uri)
       end
       if script_aliased?
         replace_script_aliases
@@ -43,6 +45,7 @@ module WebServer
     
     def make_resource
       resolve
+      somepath =  @resolved_path
       if File.exists?(@resolved_path)
         if File.directory?(@resolved_path)
           @resolved_path = File.join(@resolved_path, @conf.directory_index)
