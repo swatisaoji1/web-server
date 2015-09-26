@@ -3,15 +3,19 @@ module WebServer
   class Request
     attr_accessor :http_method, :uri, :version, :headers, :body, :params, :supported_verbs
     
-    
+    @@request_no = 0
     # Request creation receives a reference to the socket over which
     # the client has connected
     def initialize(socket)
       # Perform any setup, then parse the request
+      @@request_no += 1
       @supported_verbs = ["GET", "HEAD", "POST", "PUT"]
       @current_index = 0
       #@request_content = String.new("GET /?param1=one HTTP/1.1\r\nHost: localhost\r\nContent-Length: 40\n  this is part of previous header\r\n \r\nThis is the body.\r\nWith multiple lines...")
       @request_content = socket
+      puts "request no #{@@request_no}"
+      puts @request_content
+    
       @request_content_array = Array.new
       @request_content.each_line do |line|
         @request_content_array.push(line)
@@ -52,9 +56,6 @@ module WebServer
       else
         @body = ""
       end
-      puts 'inspecting ..@headers'
-      puts @headers.inspect
-      puts '========'
     end
 
 
@@ -88,8 +89,6 @@ module WebServer
         h_key = h_key.upcase
         @headers[h_key] = parts[2].strip
         ENV[h_key] = parts[2].strip
-        puts ENV.inspect
-        puts @headers.inspect
     end
 
     def parse_body(body_line)

@@ -14,17 +14,24 @@ module WebServer
       @client_socket = client_socket
       puts client_socket.inspect
       @server = server
-      puts server.inspect
-      @request = client_socket.gets
+     
+      @request = ""
+      while next_line_readable?(client_socket)
+        @request << client_socket.gets
+      end
+      puts @request
     end
 
     # Processes the request
     def process_request
       @request_o = Request.new(@request)
+      puts "request uri from worker #{@request_o.uri}"
       @res = Resource.new(@request_o, @server.httpd_conf, @server.mime_types)
+      
       # @res.get_resource
       # create a response object
       @response_o = Response::Factory.create(@res)
+      
       @response = @response_o.content
       
       # create a logger object
@@ -32,6 +39,14 @@ module WebServer
       @logger.log(@request_o,@response_o)
       @logger.close   
       
-    end    
+    end 
+    
+    
+    # fd be nil if next line cannot be read
+    def next_line_readable?(socket)
+      readfds, writefds, exceptfds = select([socket], nil, nil, 0.1)
+      readfds 
+    end
+       
   end
 end

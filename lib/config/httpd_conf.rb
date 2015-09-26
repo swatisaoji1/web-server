@@ -5,6 +5,7 @@ module WebServer
   class HttpdConf < Configuration
     def initialize(file_content)
 	    #read config files here
+	    # TODO refactor the code
       @config_map = Hash.new
       file_content.each_line do |line|
         @inner_hash = Hash.new
@@ -32,9 +33,7 @@ module WebServer
            @config_map[w1].merge!(@inner_hash)
           end
         end
-        puts res.to_s 
       end
-      puts @config_map.inspect
     end
 
     # Returns the value of the ServerRoot

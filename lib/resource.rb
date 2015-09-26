@@ -4,7 +4,7 @@ module WebServer
 
     def initialize(request, httpd_conf, mimes)
       @request = request 
-      @path = request.uri   
+      @path = request.uri.dup   
       @conf = httpd_conf
       @mimes = mimes
       @resolved_path =""
@@ -15,11 +15,11 @@ module WebServer
     
     def full_uri
       @final_uri ||= begin
-        full_path = File.join(@conf.document_root, @request.uri)
+        full_path = File.join(@conf.document_root, @path)
         if File.file?(full_path) 
           @final_uri = @request.uri
         else
-          @final_uri = File.join(@request.uri, @conf.directory_index)
+          @final_uri = File.join(@path, @conf.directory_index)
         end
       end
     end
@@ -39,37 +39,18 @@ module WebServer
       return @resolved_path
     end
     
-    
-=begin    
-    def get_resource
-       self.resolve
-       puts @resolved_path
-       if File.exists?(@resolved_path)
-        
-        if File.directory?(@resolved_path)
-          @resolved_path = File.join(@resolved_path, @conf.directory_index)
-        end
-      else
-        @resolved_path = ""
-      end
-       return @resolved_path
-    end
-=end   
-    
+
     
     def make_resource
-      self.resolve
-       puts @resolved_path
-       if File.exists?(@resolved_path)
-        
+      resolve
+      if File.exists?(@resolved_path)
         if File.directory?(@resolved_path)
           @resolved_path = File.join(@resolved_path, @conf.directory_index)
         end
       else
         @resolved_path = ""
       end
-       return @resolved_path
-      
+      return @resolved_path
     end
     
     
@@ -97,12 +78,15 @@ module WebServer
     def aliased?
       found = false
       @conf.aliases.each do |aliase|
+        this_uri_dup = @test_uri
         found= @request.uri.start_with?(aliase)
         if found == true then break end
       end
       return found
     end
     
+    
+    # TODO check if required 
     def get_mime_type
       if !File.directory?(@path) then
         file_extension = File.extname(@path)

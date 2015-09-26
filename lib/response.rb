@@ -25,15 +25,13 @@ module WebServer
     module Factory
       def self.create(resource)
         resource.make_resource
+        
         if !resource.request.supported_verbs.include?(resource.request.http_method) 
           puts 'handling unsupported request verb'
           return Response::BadRequest.new(resource)
         else
-          handle_valid_request(resource)
-        end
-        
-        
-        
+          self.handle_valid_request(resource)
+        end 
       end
 
 
@@ -42,11 +40,8 @@ module WebServer
         full_path = res.resolved_path
         if File.exists?(full_path)
           if res.script_aliased?
-            puts "run script"
-            
-            
+            self.handle_cgi(full_path, res) 
           else
-            puts "returns file"
             Response::OK.new(res)
           end
         else
@@ -55,9 +50,14 @@ module WebServer
       end
       
       
-      def self.handle_cgi
-        
+      def self.handle_cgi(path, resource)
+        script_output = IO.popen("/home/swati/workspace/Server_CF/public_html/cgi-bin/perl_env").read
+        responce_obj = Response::OK.new(resource)
+        responce_obj.mime_type="text/html"
+        responce_obj.body=script_output
+        return responce_obj
       end
+      
 
       def self.error(resource, error_object)
         Response::ServerError.new(resource, exception: error_object)
