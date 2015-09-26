@@ -25,8 +25,14 @@ module WebServer
     # Log a message using the information from Request and 
     # Response objects
     def log(request, response)
-    	log_file.write("Hello!\n")
-    	log_file.write("Hi Hi\n")
+	date = Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')
+    	log_file.write("#{request.http_method} #{request.uri}")
+    	log_file.write("")
+	log_file.write("")
+	log_file.write(date+" ")
+	log_file.write(request)
+	log_file.write(" ")
+	log_file.write("#{response.length}")	
     end
 
     # Allow the consumer of this class to flush and close the 

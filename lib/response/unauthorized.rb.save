@@ -1,0 +1,20 @@
+module WebServer
+  module Response
+    # Class to handle 401 responses
+    class Unauthorized < Base
+      attr_accessor :code_no
+      def initialize(resource, options={})
+        super(resource)
+        puts "initializing Unauthorized class"
+        @file_path = resource.resolved_path
+        @content = nil
+        @code_no = 401
+      end
+
+      def code
+        @code ||= WebServer::Response::RESPONSE_CODES[@code_no]
+      end
+
+    end
+  end
+end
