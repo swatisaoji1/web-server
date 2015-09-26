@@ -51,7 +51,8 @@ module WebServer
       
       
       def self.handle_cgi(path, resource)
-        script_output = IO.popen("/home/swati/workspace/Server_CF/public_html/cgi-bin/perl_env").read
+        puts path
+        script_output = IO.popen(path).read
         responce_obj = Response::OK.new(resource)
         responce_obj.mime_type="text/html"
         responce_obj.body=script_output

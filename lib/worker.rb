@@ -24,21 +24,24 @@ module WebServer
 
     # Processes the request
     def process_request
-      @request_o = Request.new(@request)
-      puts "request uri from worker #{@request_o.uri}"
-      @res = Resource.new(@request_o, @server.httpd_conf, @server.mime_types)
-      
-      # @res.get_resource
-      # create a response object
-      @response_o = Response::Factory.create(@res)
-      
-      @response = @response_o.content
-      
-      # create a logger object
-      @logger = Logger.new(@server.httpd_conf.log_file)
-      @logger.log(@request_o,@response_o)
-      @logger.close   
-      
+      if @request.length > 0
+        @request_o = Request.new(@request)
+        puts "request uri from worker #{@request_o.uri}"
+        @res = Resource.new(@request_o, @server.httpd_conf, @server.mime_types)
+        
+        # @res.get_resource
+        # create a response object
+        @response_o = Response::Factory.create(@res)
+        @response = @response_o.content
+        
+        # create a logger object
+        @logger = Logger.new(@server.httpd_conf.log_file)
+        @logger.log(@request_o,@response_o)
+        @logger.close
+        true
+      else
+        false
+      end
     end 
     
     
