@@ -15,7 +15,7 @@ module WebServer
       # Set up WebServer's configuration files and logger here
       # Do any preparation necessary to allow threading multiple requests
       #TODO need to handle missing config / mime file to return server fault
-      @file = File.open('config/httpd.conf', 'r') 
+      @file = File.open('config/swati.conf', 'r') 
       @httpd_conf = HttpdConf.new(@file)
       
       @file = File.open('config/mime.types', 'r') 
