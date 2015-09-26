@@ -9,6 +9,7 @@ module WebServer
     def initialize(socket)
       # Perform any setup, then parse the request
       @@request_no += 1
+      @headers = Hash.new
       @supported_verbs = ["GET", "HEAD", "POST", "PUT"]
       @current_index = 0
       #@request_content = String.new("GET /?param1=one HTTP/1.1\r\nHost: localhost\r\nContent-Length: 40\n  this is part of previous header\r\n \r\nThis is the body.\r\nWith multiple lines...")
@@ -17,12 +18,15 @@ module WebServer
       puts @request_content
     
       @request_content_array = Array.new
-      @request_content.each_line do |line|
-        @request_content_array.push(line)
-      end
-      @length_con = @request_content_array.length
-      @headers = Hash.new
-      parse
+      @length_con = 0
+      puts "Length of request: #{@request_content.length}"
+      if @request_content.length > 0
+        @request_content.each_line do |line|
+          @request_content_array.push(line)
+        end
+        @length_con = @request_content_array.length
+        parse
+      end 
     end
 
     # I've added this as a convenience method, see TODO (This is called from the logger
