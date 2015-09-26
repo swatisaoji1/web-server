@@ -7,15 +7,13 @@ module WebServer
   class Server
     
     attr_accessor :httpd_conf, :mime_types
-    DEFAULT_PORT = 2469
+    DEFAULT_PORT = 2468
     ROOT_DIRECTORY = './public_html' # will eventually come from config
     CONFIG_FILE = 'config/httpd.conf'
 
     def initialize(options={})
       # Set up WebServer's configuration files and logger here
       # Do any preparation necessary to allow threading multiple requests
-      
-      
       #TODO need to handle missing config / mime file to return server fault
       @file = File.open('config/httpd.conf', 'r') 
       @httpd_conf = HttpdConf.new(@file)
@@ -35,13 +33,14 @@ module WebServer
       print "listening..."
       loop do
         Thread.start(server.accept) do |socket|
-          # request = socket.gets
           @worker = Worker.new(socket, self)   
-          @worker.process_request
-          response = @worker.response
-          socket.print response
-          socket.close
-          
+          processed = @worker.process_request
+          if processed
+            response = @worker.response
+            socket.print response
+          end
+          print "listening..."
+          socket.close 
         end
       end
     end
