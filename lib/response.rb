@@ -1,4 +1,5 @@
 require_relative 'response/base'
+require 'date'
 
 module WebServer
   module Response
@@ -52,7 +53,7 @@ module WebServer
       
       def self.handle_cgi(path, resource)
         puts path
-        script_output = IO.popen(path).read
+        script_output = IO.popen(path).read # pass param
         responce_obj = Response::OK.new(resource)
         responce_obj.mime_type="text/html"
         responce_obj.body=script_output
@@ -63,7 +64,13 @@ module WebServer
         if res.script_aliased?
           self.handle_cgi(full_path, res) 
         else
-          Response::OK.new(res)
+          puts res.request.modified_since
+          puts File.mtime(full_path).to_date
+          if !res.request.modified_since.nil? && res.request.modified_since <= File.mtime(full_path).to_date
+            Response::NotModified.new(res)
+          else
+            Response::OK.new(res)
+          end
         end
       end
       

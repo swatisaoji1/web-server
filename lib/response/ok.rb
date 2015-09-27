@@ -28,6 +28,9 @@ module WebServer
         header << @body
       end
       
+      def last_modified
+        File.mtime(@file_path).strftime('%a, %e %b %Y %H:%M:%S %Z')
+      end
       
       # create header
       def header
@@ -35,8 +38,12 @@ module WebServer
         header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
         # TODO pick server and date from the common headers
         header_string << "Server: Team C Swati and Harini\r\n"
-        header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}"
-        header_string << "Connection: close}"
+        header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}\r\n"
+        header_string << "Age: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')} \r\n"
+        header_string << "Last-Modified: #{last_modified} \r\n"
+        header_string << "Expires: #{(Time.now+2*60).strftime('%a, %e %b %Y %H:%M:%S %Z')}\r\n"
+        header_string << "Cache-Control: max-age= #{2*60} \r\n"
+        header_string << "Connection: close "
         
         if @resource.request.http_method != "HEAD"
           header_string << "Content-Length: #{@body.bytesize}\r\n"

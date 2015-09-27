@@ -1,7 +1,7 @@
 # The Request class encapsulates the parsing of an HTTP Request
 module WebServer
   class Request
-    attr_accessor :http_method, :uri, :version, :headers, :body, :params, :supported_verbs
+    attr_accessor :http_method, :uri, :version, :headers, :body, :params, :supported_verbs, :if_modified_since
     
     @@request_no = 0
     # Request creation receives a reference to the socket over which
@@ -10,9 +10,10 @@ module WebServer
       # Perform any setup, then parse the request
       @@request_no += 1
       @headers = Hash.new
-      @supported_verbs = ["GET", "HEAD", "POST", "PUT"]
+      @supported_verbs = ["GET", "HEAD", "POST", "PUT", "DELETE"]
       @current_index = 0
-      #@request_content = String.new("GET /?param1=one HTTP/1.1\r\nHost: localhost\r\nContent-Length: 40\n  this is part of previous header\r\n \r\nThis is the body.\r\nWith multiple lines...")
+      @if_modified_since = nil
+      #request_content = String.new("POST / HTTP/1.1\r\nHost: localhost\r\nContent-Length: 40\n  this is part of previous header\r\n \r\n?param1=one&param2=swati+patel")
       @request_content = socket
       puts "request no #{@@request_no}"
       puts @request_content
@@ -53,13 +54,7 @@ module WebServer
         end  
         parse_header(header)
       end
-      if @current_index < @request_content_array.length  then
-        newarray = @request_content_array[@current_index..-1].collect{|x| x.lstrip}
-        @body = newarray.join()
-        @body.strip!
-      else
-        @body = ""
-      end
+      parse_body
     end
 
 
@@ -83,19 +78,43 @@ module WebServer
        @http_method, url, @version = @request_content_array[0].split
        split_url = url.partition("?")
        @uri = split_url[0]
-       parse_params(split_url[2])
+       if @http_method == 'GET' && !split_url[2].nil?
+         parse_params(split_url[2])
+       end
        @current_index = @current_index + 1
     end
     
     def parse_header(header_line)
         parts =  header_line.partition(":")
-        h_key = parts[0].sub('-', '_')
+        h_key = parts[0].gsub('-', '_')
         h_key = h_key.upcase
         @headers[h_key] = parts[2].strip
         ENV[h_key] = parts[2].strip
+    
     end
 
-    def parse_body(body_line)
+    def parse_body
+      if @current_index < @request_content_array.length
+          newarray = @request_content_array[@current_index..-1].collect{|x| x.lstrip}
+          @body = newarray.join()
+          puts @body
+          @body.strip!
+          
+        # if the method is post parameters are in the body
+        if @http_method == "POST" && @body.length > 0
+           parse_params(@body)
+        end
+          
+      else
+        @body = ""
+      end
+      
+    end
+    
+    def modified_since
+      if @headers.has_key?('IF_MODIFIED_SINCE')
+        Date.parse(@headers['IF_MODIFIED_SINCE'])
+      end
     end
 
 
@@ -107,6 +126,7 @@ module WebServer
       param_pairs.each do |pair|
         @params[pair.split('=').first] = pair.split('=').last
       end
+      puts @params
     end
  
     
