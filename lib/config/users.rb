@@ -12,9 +12,10 @@ module WebServer
     
     
     def valid?(username, password)
-      puts @username_password[username]
-      puts Digest::SHA1.base64digest(password)
-      @username_password[username].strip == Digest::SHA1.base64digest(password).strip
+      if @username_password.has_key?(username)
+        return @username_password[username].strip == Digest::SHA1.base64digest(password).strip
+      end
+      false
     end
     
     def users
