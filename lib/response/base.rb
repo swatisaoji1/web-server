@@ -4,12 +4,18 @@ module WebServer
     # (This allows us to inherit basic functionality in derived responses
     # to handle response code specific behavior)
     class Base
-      attr_reader :version, :code, :body
+      attr_reader :version, :code, :body, :code_no
 
       def initialize(resource, options={})
         @resource = resource
         @version = resource.request.version
+        @file_path = resource.resolved_path
         @body = ""
+        @code_no = 200
+      end
+
+      def last_modified
+        File.mtime(@file_path).strftime('%a, %e %b %Y %H:%M:%S %Z')
       end
 
       def to_s

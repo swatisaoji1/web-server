@@ -1,6 +1,7 @@
 module WebServer
   module Response
     # Class to handle 404 errors
+    
     class NotFound < Base
      def initialize(resource, options={})
         super(resource)
@@ -19,6 +20,7 @@ module WebServer
       
       def content
         make_body
+        puts @body
         header << @body
       end
       
@@ -31,6 +33,7 @@ module WebServer
         header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}" 
         header_string << "Content-Length: #{@body.bytesize}\r\n"
         header_string << "\r\n" 
+        header_string
       end
       
       
