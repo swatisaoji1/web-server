@@ -100,11 +100,13 @@ module WebServer
         content_length = resource.request.headers['CONTENT_LENGTH'].to_i
         body = resource.request.body
         if File.exists?(full_path)
-          file = File.open(full_path,"w")
-          written_length = file.write(body)
+          written_length = File.open(full_path,"w") {
+            |file| file.write(body)
+          }
         else
-          file = File.new(full_path,"w")
-          written_length = file.write(body) 
+          written_length = File.new(full_path,"w") {
+            |file| file.write(body)
+          }
         end
         success_response = Response::SuccessfullyCreated.new(resource)
         success_response.written_length = written_length
