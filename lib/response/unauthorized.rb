@@ -2,6 +2,7 @@ module WebServer
   module Response
     # Class to handle 401 responses
     class Unauthorized < Base
+      attr_accessor :code_no
       def initialize(resource, options={})
         super(resource)
         @body = nil
@@ -50,6 +51,7 @@ module WebServer
         @body << "</body>"
         @body << "</html>"
       end
+    
     end
   end
 end

@@ -1,3 +1,5 @@
+require 'socket'
+require 'fileutils'
 module WebServer
   class Logger
 
@@ -13,13 +15,21 @@ module WebServer
 
    def log_file
   	@log_file ||= begin
-    	 if File.exists?(@log_file_path)
-    	  File.open(@log_file_path,"a")
-    	 else
-    	  expanded = File.expand_path(__FILE__)
-    	  full_path = expanded + "log.txt"
-    	  File.new(full_path,"a")
-    	 end
+         dir = File.dirname(@log_file_path)
+          if File.directory?(dir)
+    	    if File.exists?(@log_file_path)
+    	      File.open(@log_file_path,"a")
+    	    else
+    	      File.new(@log_file_path,"a")
+    	    end
+          else
+            FileUtils.mkdir_p(dir)
+            if File.exists?(@log_file_path)
+              File.open(@log_file_path,"a")
+            else
+              File.new(@log_file_path,"a")
+            end
+          end
   	end
    end
     # Log a message using the information from Request and 
@@ -27,13 +37,9 @@ module WebServer
     def log(request, response)
       # TODO error catching for IO error
 	    date = Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')
-    	log_file.write("#{request.http_method} #{request.uri}")
-    	log_file.write("")
-    	log_file.write("")
-    	log_file.write(date+" ")
-    	log_file.write(request)
-    	log_file.write(" ")
-    	log_file.write("#{response.length}")	
+        ip = IPSocket.getaddress(Socket.gethostname)
+        #TODO check for remote logger
+    	log_file.write(ip+" - "+"#{request.user_id} "+date+" "+"#{request.class} #{request.http_method} #{request.uri} #{request.version} #{response.code_no} #{response.body.length}\n")
     end
 
     # Allow the consumer of this class to flush and close the 

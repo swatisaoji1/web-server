@@ -2,6 +2,7 @@ module WebServer
   module Response
     # Class to handle 400 responses
     class BadRequest < Base
+      attr_accessor :code_no
       def initialize(resource, options={})
         super(resource)
         puts "initializing BadRequest class"
@@ -25,6 +26,7 @@ module WebServer
       
       # create header
       #TODO code repetation move to base class 
+
       def header
         header_string = ""
         header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
@@ -50,7 +52,8 @@ module WebServer
           body
         end
       end
-      
+
     end
   end
 end
+

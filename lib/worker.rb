@@ -29,11 +29,10 @@ module WebServer
         @response = @response_o.content
         # create a logger object
         # FIXME
-=begin
         @logger = Logger.new(@server.httpd_conf.log_file)
         @logger.log(@request_o,@response_o)
         @logger.close
-=end
+
         true
       else
         false

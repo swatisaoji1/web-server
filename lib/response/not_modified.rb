@@ -2,6 +2,7 @@ module WebServer
   module Response
     # Class to handle 304 responses
     class NotModified < Base
+      attr_accessor :code_no
       def initialize(resource, options={})
         @code_no = 304
       end
@@ -16,6 +17,7 @@ module WebServer
       end
       
             # create header
+
       def header
         header_string = ""
         header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
@@ -26,7 +28,7 @@ module WebServer
         puts header_string
       end
       
-      
+
     end
   end
 end

@@ -3,6 +3,7 @@ require 'date'
 
 module WebServer
   module Response
+    attr_accessor :code_no
     DEFAULT_HTTP_VERSION = 'HTTP/1.1'
 
     RESPONSE_CODES = {
@@ -49,8 +50,15 @@ module WebServer
           Response::NotFound.new(res)
         end  
       end
+
+      def code_no
+        @code_no
+      end
       
-      
+      def code
+        @code ||= WebServer::Response::RESPONSE_CODES[@code_no]
+      end  
+
       def self.handle_cgi(path, resource)
         puts path
         script_output = IO.popen(path).read # pass param
