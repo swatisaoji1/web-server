@@ -32,7 +32,8 @@ module WebServer
       puts server.class
       print "listening..."
       loop do
-        Thread.start(server.accept) do |socket|
+        threads = []
+        threads << Thread.start(server.accept) do |socket|
           @worker = Worker.new(socket, self)   
           processed = @worker.process_request
           if processed
@@ -42,6 +43,7 @@ module WebServer
           print "listening..."
           socket.close 
         end
+        threads.each { |thr| thr.join }
       end
     end
   

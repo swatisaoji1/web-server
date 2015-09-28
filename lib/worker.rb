@@ -15,6 +15,8 @@ module WebServer
       puts client_socket.inspect
       @server = server
       @request = nil
+      
+      # TODO error catching
       read_socket(client_socket)
     end
 
