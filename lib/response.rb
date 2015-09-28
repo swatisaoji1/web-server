@@ -30,6 +30,9 @@ module WebServer
         if !resource.request.supported_verbs.include?(resource.request.http_method) 
           puts 'handling unsupported request verb'
           return Response::BadRequest.new(resource)
+        elsif resource.request.http_method == "PUT"
+          self.handle_put_request(resource)
+         
         else
           self.handle_valid_request(resource)
         end 
@@ -90,6 +93,24 @@ module WebServer
         end
       end
       
+      def self.handle_put_request(resource)
+        #TODO error catch if key missing
+        full_path = resource.resolved_path
+        content_type = resource.request.headers['CONTENT_TYPE']
+        content_length = resource.request.headers['CONTENT_LENGTH'].to_i
+        body = resource.request.body
+        if File.exists?(full_path)
+          file = File.open(full_path,"w")
+          written_length = file.write(body)
+        else
+          file = File.new(full_path,"w")
+          written_length = file.write(body) 
+        end
+        success_response = Response::SuccessfullyCreated.new(resource)
+        success_response.written_length = written_length
+        success_response.content_type = content_type
+        success_response
+      end
       
       def self.error(resource, error_object)
         Response::ServerError.new(resource, exception: error_object)

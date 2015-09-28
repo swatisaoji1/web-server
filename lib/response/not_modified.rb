@@ -16,10 +16,8 @@ module WebServer
       def content
         header
       end
-      
-    
-      
-            # create header
+           
+      # create header
       def header
         header_string = ""
         header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
@@ -29,8 +27,6 @@ module WebServer
         header_string << "Expires: #{(Time.now+10*60).strftime('%a, %e %b %Y %H:%M:%S %Z')}\r\n"
         puts header_string
       end
-      
-
     end
   end
 end

@@ -103,8 +103,7 @@ module WebServer
         # if the method is post parameters are in the body
         if @http_method == "POST" && @body.length > 0
            parse_params(@body)
-        end
-          
+        end  
       else
         @body = ""
       end

@@ -16,7 +16,8 @@ module WebServer
     def full_uri
       @final_uri ||= begin
         full_path = File.join(@conf.document_root, @path)
-        if File.file?(full_path) 
+        # TODO modify for delete
+        if File.file?(full_path) || @request.http_method == "PUT"
           @request.uri
         else
           File.join(@path, @conf.directory_index)
@@ -46,14 +47,12 @@ module WebServer
     def make_resource
       resolve
       somepath =  @resolved_path
-      if File.exists?(@resolved_path)
-        if File.directory?(@resolved_path)
+      if File.exists?(@resolved_path) 
+        if File.directory?(@resolved_path) && @request.http_method != "PUT"
           @resolved_path = File.join(@resolved_path, @conf.directory_index)
         end
-      else
-        @resolved_path = ""
       end
-      return @resolved_path
+      @resolved_path
     end
     
     
