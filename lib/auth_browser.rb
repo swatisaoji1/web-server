@@ -33,6 +33,11 @@ module WebServer
       false
     end
     
+    def has_auth_head?
+      auth_head = @res.request.headers["AUTHORIZATION"]
+      !auth_head.nil?
+    end
+    
     def authorized?
       auth_head = @res.request.headers["AUTHORIZATION"]
       if !auth_head.nil?
