@@ -42,15 +42,12 @@ module WebServer
           end
           print "listening..."
           socket.close 
+          end
+          threads.each { |thr| thr.join }
         end
-        threads.each { |thr| thr.join }
       end
-    end
-  
 
-    private
-  
-  #here there is comment
+
   end
 end
 

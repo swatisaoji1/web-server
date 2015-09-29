@@ -46,6 +46,7 @@ module WebServer
       request =""
       body = ""
       header_done = false
+      length = 0
       while next_line_readable?(client_socket)
         if !header_done
           line = client_socket.gets 

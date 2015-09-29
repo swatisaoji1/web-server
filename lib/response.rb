@@ -75,21 +75,17 @@ module WebServer
         if res.script_aliased?
           self.handle_cgi(full_path, res) 
         else
-          puts res.request.modified_since
-          puts File.mtime(full_path).to_date
-          if !res.request.modified_since.nil? && res.request.modified_since <= File.mtime(full_path).to_date
-            Response::NotModified.new(res)
-          else
-            Response::OK.new(res)
-          end
+          Response::OK.new(res)
         end
       end
       
       def self.handle_authorized_access(full_path, auth, res)
-        if auth.authorized?
-          self.handle_normal_access(full_path, res)
-        else
+        if !auth.has_auth_head? 
           Response::Unauthorized.new(res)
+        elsif !auth.authorized?
+          Response::Forbidden.new(res)
+        else
+          self.handle_normal_access(full_path, res)
         end
       end
       
@@ -100,11 +96,13 @@ module WebServer
         content_length = resource.request.headers['CONTENT_LENGTH'].to_i
         body = resource.request.body
         if File.exists?(full_path)
-          file = File.open(full_path,"w")
-          written_length = file.write(body)
+          written_length = File.open(full_path,"w") {
+            |file| file.write(body)
+          }
         else
-          file = File.new(full_path,"w")
-          written_length = file.write(body) 
+          written_length = File.open(full_path,"w") {
+            |file| file.write(body)
+          }
         end
         success_response = Response::SuccessfullyCreated.new(resource)
         success_response.written_length = written_length

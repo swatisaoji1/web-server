@@ -22,7 +22,8 @@ module WebServer
 
       def content
         @content ||= begin
-          header << body
+          body
+          header << @body
         end
       end
       
@@ -37,7 +38,7 @@ module WebServer
         
         if @resource.request.http_method != "HEAD"
           puts  body.bytesize
-          header_string << "Content-Length: #{body.bytesize}\r\n"
+          header_string << "Content-Length: #{@body.bytesize}\r\n"
           puts mime_type
           header_string << "Content-Type: #{mime_type}\r\n"
           header_string << "\r\n" 
@@ -45,14 +46,13 @@ module WebServer
       end
 
       def body   
-        response = ""
-        response << "<!DOCTYPE html>"
-        response << "<html>"
-        response << "<body>"
-        response << "<h1> 403 </h1>"
-        response << "</body>"
-        response << "</html>"
-        return response
+        @body = ""
+        @body << "<!DOCTYPE html>"
+        @body << "<html>"
+        @body << "<body>"
+        @body << "<p> Error code : #{code}</p>"
+        @body << "<p> Sorry you are not authorized to access this page </p>"
+        @body << "</html>"
       end
 
     end
