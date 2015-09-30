@@ -14,16 +14,10 @@ module WebServer
       @current_index = 0
       @if_modified_since = nil
       @request_content = socket
-
-      dump_request
-
-      @request_content_array = Array.new
       @length_con = 0
-      if @request_content.length > 0
-        @request_content.each_line do |line|
-          @request_content_array.push(line)
-        end
-        @length_con = @request_content_array.length
+      dump_request
+      make_request_array
+      if @length_con > 0
         parse
       end 
       
@@ -61,7 +55,13 @@ module WebServer
     end
     
     
-    def next_line
+    def make_request_array
+      @request_content_array = Array.new
+      @request_content.each_line do |line|
+        @request_content_array.push(line)
+      end
+      @length_con = @request_content_array.length
+      puts "request array length #{@length_con}"
     end
 
   
@@ -101,6 +101,7 @@ module WebServer
     end
     
     def modified_since
+      
       if @headers.has_key?('IF_MODIFIED_SINCE')
         Date.parse(@headers['IF_MODIFIED_SINCE'])
       end

@@ -21,7 +21,7 @@ module WebServer
         begin
           read_socket(client_socket)
           if !@request.nil? && @request.length != 0 && !@req_process_done
-            puts @request
+            
             # process request and make resource
             @request_o = Request.new(@request)
             @res = Resource.new(@request_o, @server.httpd_conf, @server.mime_types)
@@ -29,6 +29,7 @@ module WebServer
             # create a response object
             @response_o = Response::Factory.create(@res)
             @response = @response_o.content
+            
             # create a logger object
             @logger = Logger.new(@server.httpd_conf.log_file)
             @logger.log(@request_o,@response_o) 
