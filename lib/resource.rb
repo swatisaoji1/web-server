@@ -17,7 +17,7 @@ module WebServer
       @final_uri ||= begin
         full_path = File.join(@conf.document_root, @path)
         # TODO modify for delete
-        if File.file?(full_path) || @request.http_method == "PUT"
+        if File.file?(full_path) || @request.http_method == "PUT" || @request.http_method == "DELETE"
           @request.uri
         else
           File.join(@path, @conf.directory_index)
