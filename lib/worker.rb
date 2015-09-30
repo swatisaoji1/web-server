@@ -7,32 +7,25 @@ require_relative 'response'
 module WebServer
   class Worker
     
-    attr_reader :response, :server, :client_socket, :logger
+    attr_reader :response, :server, :client_socket, :logger, :req_process_done
     # Takes a reference to the client socket and the logger object
     def initialize(client_socket, server=nil)
       @client_socket = client_socket
       @server = server
       @request = nil
-      begin
-        read_socket(client_socket)
-      rescue
-        puts "Error in request parsing"
-        @response_o = WebServer::Response::ServerError.new()
-        @response = @response_o.content
-      end
-      
     end
 
 
     # Processes the request
     def process_request
         begin
-          if !@request.nil? && @request.length != 0
+          read_socket(client_socket)
+          if !@request.nil? && @request.length != 0 && !@req_process_done
             puts @request
             # process request and make resource
             @request_o = Request.new(@request)
             @res = Resource.new(@request_o, @server.httpd_conf, @server.mime_types)
-       
+            
             # create a response object
             @response_o = Response::Factory.create(@res)
             @response = @response_o.content
@@ -41,8 +34,6 @@ module WebServer
             @logger.log(@request_o,@response_o) 
             @logger.close
             true
-          else
-            false
           end
         rescue StandardError => e
           

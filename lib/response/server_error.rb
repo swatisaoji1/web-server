@@ -18,9 +18,7 @@ module WebServer
       end
 
       def content
-        @content ||= begin
           header << body
-        end
       end
       
       
