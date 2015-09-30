@@ -8,13 +8,13 @@ module WebServer
         super(resource)
         puts "initializing ok class"
         @body = nil
-        @mime_type = nil
+        @mime_type = "text/html"
         @code_no = 200
       end
      
       
       def mime_type
-        @mime_type ||= @resource.mimes.for_extension(File.extname(@file_path).delete('.'))
+        @mime_type = @resource.mimes.for_extension(File.extname(@file_path).delete('.'))
       end
       
       def code

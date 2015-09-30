@@ -21,7 +21,7 @@ module WebServer
     DEFAULT_HEADERS =
       {
         'Date' => Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z'),
-        'Server' => 'John Roberts CSC 667'
+        'Server' => 'Team -C Server: Harini and Swati'
       }
 
     module Factory
