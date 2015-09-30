@@ -25,7 +25,7 @@ module WebServer
       # Begin your 'infinite' loop, reading from the TCPServer, and
       # processing the requests as connections are made
       server = TCPServer.new('127.0.0.1', DEFAULT_PORT) 
-      print "listening..."
+      print "\nTeam -C server listening..."
       loop do
         threads = []
         threads << Thread.start(server.accept) do |socket|
@@ -35,7 +35,7 @@ module WebServer
             response = @worker.response
             socket.print response
           end
-          print "listening..."
+          print "\nTeam -C server listening..."
           socket.close 
           end
           threads.each { |thr| thr.join }
