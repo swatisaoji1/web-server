@@ -31,9 +31,9 @@ module WebServer
         @response = @response_o.content
         puts @response
         # create a logger object
-        # FIXME
+        
         @logger = Logger.new(@server.httpd_conf.log_file)
-        @logger.log(@request_o,@response_o)
+        @logger.log(@request_o,@response_o) 
         @logger.close
 
         true
@@ -44,28 +44,31 @@ module WebServer
     
     
     def read_socket(client_socket)
-      request =""
-      body = ""
-      header_done = false
-      length = 0
-      while next_line_readable?(client_socket)
-        if !header_done
-          line = client_socket.gets 
-          request << line
-          if line.include? "Content-Length" then length = line.split(':')[1].to_i end
-          if line.strip.empty?
-            header_done = true 
+      rescue SocketError
+        raise SocketError
+      else
+        request =""
+        body = ""
+        header_done = false
+        length = 0
+        while next_line_readable?(client_socket)
+          if !header_done
+            line = client_socket.gets 
+            request << line
+            if line.include? "Content-Length" then length = line.split(':')[1].to_i end
+            if line.strip.empty?
+              header_done = true 
+            end
+          else
+            while body.bytesize < length
+              body << client_socket.getc
+            end
+            body << "\r\n"
           end
-        else
-          while body.bytesize < length
-            body << client_socket.getc
-          end
-          body << "\r\n"
         end
-      end
-      request << body
-      @request = request
-      puts @request
+        request << body
+        @request = request
+        puts @request
     end
     
     # fd be nil if next line cannot be read

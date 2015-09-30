@@ -9,6 +9,7 @@ module WebServer
     RESPONSE_CODES = {
       200 => 'OK',
       201 => 'Successfully Created',
+      204 => 'Successfully Deleted',
       304 => 'Not Modified',
       400 => 'Bad Request',
       401 => 'Unauthorized',
@@ -32,7 +33,8 @@ module WebServer
           return Response::BadRequest.new(resource)
         elsif resource.request.http_method == "PUT"
           self.handle_put_request(resource)
-         
+        elsif resource.request.http_method == "DELETE"
+          self.handle_delete_request(resource) 
         else
           self.handle_valid_request(resource)
         end 
@@ -118,6 +120,17 @@ module WebServer
         success_response
       end
       
+      def self.handle_delete_request(resource)
+        full_path = resource.resolved_path
+        content_type = resource.request.headers['CONTENT_TYPE']
+        if File.exists?(full_path)
+          File.delete(full_path)
+        end
+        success_response = Response::SuccessfullyDeleted.new(resource)
+        success_response.content_type = content_type
+        success_response
+      end
+
       def self.error(resource, error_object)
         Response::ServerError.new(resource, exception: error_object)
       end
