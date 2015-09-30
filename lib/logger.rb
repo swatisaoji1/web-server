@@ -16,6 +16,7 @@ module WebServer
    def log_file
      @log_file ||= begin
      dir = File.dirname(@log_file_path)
+     puts dir
      if File.directory?(dir)
        if File.exists?(@log_file_path)
          File.open(@log_file_path,"a")
@@ -24,7 +25,7 @@ module WebServer
        end
      else
        FileUtils.mkdir_p(dir)
-       if File.exists?(@log_file_path)
+       if File.exists?(@log_file_path) 
          File.open(@log_file_path,"a")
        else
        File.new(@log_file_path,"a")
@@ -37,8 +38,8 @@ module WebServer
     def log(request, response)
       # TODO error catching for IO error
 	    date = Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')
-        ip = IPSocket.getaddress(Socket.gethostname)
-        #TODO check for remote logger
+      ip = IPSocket.getaddress(Socket.gethostname)
+       #TODO check for remote logger
         
     	log_file.write(ip+" - "+date+" "+"#{request.class} #{request.http_method} #{request.uri} #{request.version} #{response.code_no} #{response.get_body_size}\n")
     end

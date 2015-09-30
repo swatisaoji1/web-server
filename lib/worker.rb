@@ -56,8 +56,8 @@ module WebServer
       length = 0
       while next_line_readable?(client_socket)
         if !header_done
-          line = client_socket.gets 
-          request << line
+          line = client_socket.gets
+          if !line.empty? then request << line end
           if line.include? "Content-Length" then length = line.split(':')[1].to_i end
           if line.strip.empty?
             header_done = true 

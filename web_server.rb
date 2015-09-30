@@ -14,7 +14,7 @@ module WebServer
     def initialize(options={})
       # Set up WebServer's configuration files 
       begin
-        @httpd_conf = HttpdConf.new(read_file('config/httpd.conf'))
+        @httpd_conf = HttpdConf.new(read_file('config/swati.conf'))
         @mime_types = MimeTypes.new(read_file('config/mime.types'))
       rescue 
         puts "Error in reading/ creating config or mimes , please check file locations and name"
