@@ -9,7 +9,7 @@ module WebServer
       def initialize(resource, options={})
         super(resource)
         @written_length = 0
-        @content_type = nil
+        @content_type = "text/plain"
         @code_no = 201
       end
       
@@ -29,8 +29,8 @@ module WebServer
         # TODO pick server and date from the common headers
         header_string << "Server: Team C Swati and Harini\r\n"
         header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}\r\n"
-        header_string << "Content-Length: #{@written_length}\r\n"
         header_string << "Content-Type: #{@content_type}\r\n"
+        header_string << "Location: #{@file_path}\r\n"
         header_string << "\r\n" 
       end
       

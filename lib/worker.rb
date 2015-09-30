@@ -29,6 +29,7 @@ module WebServer
         # create a response object
         @response_o = Response::Factory.create(@res)
         @response = @response_o.content
+        puts @response
         # create a logger object
         # FIXME
         @logger = Logger.new(@server.httpd_conf.log_file)

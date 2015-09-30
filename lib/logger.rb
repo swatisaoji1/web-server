@@ -40,7 +40,7 @@ module WebServer
         ip = IPSocket.getaddress(Socket.gethostname)
         #TODO check for remote logger
         
-    	log_file.write(ip+" - "+"#{request.user_id} "+date+" "+"#{request.class} #{request.http_method} #{request.uri} #{request.version} #{response.code_no} #{response.body.length}\n")
+    	log_file.write(ip+" - "+"#{request.user_id} "+date+" "+"#{request.class} #{request.http_method} #{request.uri} #{request.version} #{response.code_no} #{response.get_body_size}\n")
     end
 
     # Allow the consumer of this class to flush and close the 

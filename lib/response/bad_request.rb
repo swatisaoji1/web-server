@@ -9,8 +9,9 @@ module WebServer
         @file_path = resource.resolved_path
         @content = nil
         @code_no = 400
-        @body = nil
+        @body = ""
         @header = nil
+        @mime_type = "text/html "
       end
       
       
@@ -33,12 +34,14 @@ module WebServer
         # TODO pick server and date from the common headers
         header_string << "Server: Team C Swati and Harini\r\n"
         header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}" 
+        header_string << "Content-Type: #{@mime_type}\r\n"
         header_string << "Content-Length: #{@body.bytesize}\r\n"
         header_string << "\r\n" 
+        header_string
       end
       
       
-       def body 
+       def make_body 
         @body ||= begin 
           body = ""
           body << "<!DOCTYPE html>"

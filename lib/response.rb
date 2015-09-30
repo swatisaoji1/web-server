@@ -75,7 +75,15 @@ module WebServer
         if res.script_aliased?
           self.handle_cgi(full_path, res) 
         else
-          Response::OK.new(res)
+=begin
+          puts res.request.modified_since
+          puts File.mtime(full_path).to_date
+          if !res.request.modified_since.nil? && res.request.modified_since == File.mtime(full_path).to_date
+            Response::NotModified.new(res)
+          else
+=end
+            Response::OK.new(res)
+#          end
         end
       end
       

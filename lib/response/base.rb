@@ -10,12 +10,20 @@ module WebServer
         @resource = resource
         @version = resource.request.version
         @file_path = resource.resolved_path
-        @body = ""
+        @body = nil
         @code_no = 200
       end
 
       def last_modified
         File.mtime(@file_path).strftime('%a, %e %b %Y %H:%M:%S %Z')
+      end
+      
+      def get_body_size
+        if !@body.nil? 
+           @body.length 
+        else
+          0
+        end 
       end
 
       def to_s

@@ -7,7 +7,6 @@ module WebServer
       def initialize(resource, options={})
         super(resource)
         puts "initializing ok class"
-        
         @body = nil
         @mime_type = nil
         @code_no = 200
@@ -43,15 +42,18 @@ module WebServer
         # TODO pick server and date from the common headers
         header_string << "Server: Team C Swati and Harini\r\n"
         header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}\r\n"
-        header_string << "Age: #{age} \r\n"
         header_string << "Last-Modified: #{last_modified} \r\n"
         header_string << "Expires: #{expiry}\r\n"
         
+        # Connection Close
+        
+        
         if @resource.request.http_method != "HEAD"
-          header_string << "Content-Length: #{@body.bytesize}\r\n"
+          header_string << "Content-Length: #{get_body_size}\r\n"
           header_string << "Content-Type: #{@mime_type}\r\n"
           header_string << "\r\n" 
         end 
+        header_string
       end
       
       # create body
