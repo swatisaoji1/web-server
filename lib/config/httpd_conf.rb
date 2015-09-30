@@ -4,53 +4,47 @@ require_relative 'configuration'
 module WebServer
   class HttpdConf < Configuration
     def initialize(file_content)
-	    #read config files here
-	    # TODO refactor the code
       @config_map = Hash.new
       file_content.each_line do |line|
         @inner_hash = Hash.new
-        line = line.gsub(/#(.*)/, '')
-        words = line.scan(/\S+/)
+        words = line.gsub(/#(.*)/, '').scan(/\S+/)
         if(!words.empty?)
           words.map { |word|   word.gsub!(/\A"|"\Z/, '') }
           @count = words.length
-          w1 = words.shift
-          w2 = words.shift
+          first_word = words.shift
+          second_Word = words.shift
           
-          
+          # create a nested hash to handle multiple entries eg Alias
           if (@count>2)
-           @inner_hash[w2]=words
+           @inner_hash[second_Word]=words
            res=words
           else
-           @inner_hash[w1]=w2
-           res=w2
+           @inner_hash[first_word]=second_Word
+           res=second_Word
           end
           
           #puts @config2_map.to_s
-          if(@config_map[w1].nil?)
-           @config_map[w1]=@inner_hash
+          if(@config_map[first_word].nil?)
+           @config_map[first_word]=@inner_hash
           else
-           @config_map[w1].merge!(@inner_hash)
+           @config_map[first_word].merge!(@inner_hash)
           end
+          
         end
       end
     end
 
     # Returns the value of the ServerRoot
     def server_root 
-	if @config_map.has_key?("ServerRoot")
-	 @config_map["ServerRoot"].each do |k,v|
-	  return "#{v}"
-  	 end
- 	end
+      if @config_map.has_key?("ServerRoot")
+    	  @config_map["ServerRoot"].each { |k,v| return "#{v}"}
+     	end
     end
 
     # Returns the value of the DocumentRoot
     def document_root
     	if @config_map.has_key?("DocumentRoot")
-    	 @config_map["DocumentRoot"].each do |k,v|
-        return "#{v}"
-       end
+    	 @config_map["DocumentRoot"].each {|k,v| return "#{v}"} 
     	end
     	return ""
     end
@@ -58,37 +52,31 @@ module WebServer
     # Returns the directory index file
     def directory_index
     	if @config_map.has_key?("DirectoryIndex")
-    	 @config_map["DirectoryIndex"].each do |k,v|
-         return "#{v}"
-        end
+    	 @config_map["DirectoryIndex"].each { |k,v| return "#{v}"}
     	end
+    	# default directory index if not provided in config
     	return "index.html"
     end
 
     # Returns the *integer* value of Listen
     def port
     	if @config_map.has_key?("Listen")
-    	 @config_map["Listen"].each do |k,v|
-          return "#{v}".to_i
-        end
+    	 @config_map["Listen"].each { |k,v| return "#{v}".to_i}
     	end
     end
 
     # Returns the value of LogFile
     def log_file
-	if @config_map.has_key?("LogFile")
-	 @config_map["LogFile"].each do |k,v|
-          return "#{v}"
-         end
-	end
+    	if @config_map.has_key?("LogFile")
+    	 @config_map["LogFile"].each {|k,v| return "#{v}" }
+    	end
     end
+
 
     # Returns the name of the AccessFile 
     def access_file_name
   	   if @config_map.has_key?("AccessFile")
-         @config_map["AccessFile"].each do |k,v|
-          return "#{v}"
-         end
+         @config_map["AccessFile"].each { |k,v| return "#{v}" }
       end
       return ".htaccess"
     end

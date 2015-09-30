@@ -1,7 +1,7 @@
 module WebServer
   class Htaccess
      
-     attr_reader :file_content_arr
+    attr_reader :file_content_arr
     
     def initialize(htaccess_file_content)
       @file_content_arr = Hash.new
@@ -9,7 +9,6 @@ module WebServer
         words = line.gsub(/#(.*)/, '').scan(/\S+/)
         if !words.empty? then @file_content_arr[words.shift] = words.shift.gsub!(/\A"|"\Z/, '') end
       end
-      
     end
     
     def auth_user_file
@@ -36,10 +35,5 @@ module WebServer
       end
     end
     
-    
-    
-    
-      
-
   end
 end

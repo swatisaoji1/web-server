@@ -7,6 +7,8 @@ module WebServer
     # you may want to specify.  I include the option :echo to 
     # allow me to decide if I want my server to print out log
     # messages as they get generated
+    
+    
     def initialize(log_file_path, options={})
     	@option = options
     	@log_file_path = log_file_path
@@ -17,6 +19,7 @@ module WebServer
       @log_file ||= begin
       dir = File.dirname(@log_file_path)
      
+     # if log directory exists
       if File.directory?(dir)
         if File.exists?(@log_file_path)
           File.open(@log_file_path,"a")
@@ -24,6 +27,7 @@ module WebServer
           File.new(@log_file_path,"a")
         end
      
+      # if log directory does not exists create one
       else
         FileUtils.mkdir_p(dir)
         if File.exists?(@log_file_path) 
@@ -34,21 +38,20 @@ module WebServer
       end
   	end
    end
-    # Log a message using the information from Request and 
-    # Response objects
+   
+   
+    # Log a message using the information from Request and Response objects
     def log(request, response)
-      # TODO error catching for IO error
 	    date = Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')
       ip = IPSocket.getaddress(Socket.gethostname)
        #TODO check for remote logger
-        
     	log_file.write(ip+" - "+date+" "+"#{request.class} #{request.http_method} #{request.uri} #{request.version} #{response.code_no} #{response.get_body_size}\n")
     end
 
-    # Allow the consumer of this class to flush and close the 
-    # log file
+    # Allow the consumer of this class to flush and close the log file
     def close
 	    log_file.close
     end
+    
   end
 end
