@@ -13,8 +13,13 @@ module WebServer
       @client_socket = client_socket
       @server = server
       @request = nil
-      read_socket(client_socket)
-      # TODO error catching
+      begin
+        read_socket(client_socket)
+      rescue
+        puts "Error in request parsing"
+        @response_o = WebServer::Response::ServerError.new()
+        @response = @response_o.content
+      end
       
     end
 

@@ -24,8 +24,9 @@ module WebServer
     def start
       # Begin your 'infinite' loop, reading from the TCPServer, and
       # processing the requests as connections are made
-      server = TCPServer.new('127.0.0.1', DEFAULT_PORT) 
-      print "\nTeam -C server listening..."
+      port = if !get_port.nil? then get_port else DEFAULT_PORT end
+      server = TCPServer.new('127.0.0.1', port) 
+      print "\nTeam -C server listening at port:#{port}..."
       loop do
         threads = []
         threads << Thread.start(server.accept) do |socket|
@@ -42,6 +43,9 @@ module WebServer
         end
       end
 
+    def get_port
+      @httpd_conf.port
+    end
     
     def read_file(path)
       if File.exists?(path)
