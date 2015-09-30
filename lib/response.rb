@@ -18,18 +18,16 @@ module WebServer
       500 => 'Internal Server Error'
     }.freeze
 
-    def self.default_headers
+    DEFAULT_HEADERS =
       {
         'Date' => Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z'),
         'Server' => 'John Roberts CSC 667'
       }
-    end
 
     module Factory
       def self.create(resource)
         resource.make_resource
         if !resource.request.supported_verbs.include?(resource.request.http_method) 
-          puts 'handling unsupported request verb'
           return Response::BadRequest.new(resource)
         elsif resource.request.http_method == "PUT"
           self.handle_put_request(resource)
@@ -42,7 +40,6 @@ module WebServer
 
 
       def self.handle_valid_request(res)
-        puts 'handling valid request verb'
         full_path = res.resolved_path
         if File.exists?(full_path)
           auth = WebServer::AuthBrowser.new(res, res.conf.access_file_name, res.conf.document_root)
@@ -65,7 +62,6 @@ module WebServer
       end  
 
       def self.handle_cgi(path, resource)
-        puts path
         script_output = IO.popen(path).read # pass param
         responce_obj = Response::OK.new(resource)
         responce_obj.mime_type="text/html"

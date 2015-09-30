@@ -34,7 +34,6 @@ module WebServer
           end 
           username_password
         end
-        puts @username_password
       end
      end
      

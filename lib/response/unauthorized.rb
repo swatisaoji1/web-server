@@ -26,8 +26,8 @@ module WebServer
         header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
         header_string << "WWW-Authenticate: Basic realm= \"Team C Server\"\r\n"
         # TODO pick server and date from the common headers
-        header_string << "Server: Team C Swati and Harini\r\n"
-        header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}"
+        header_string << "Server: #{get_server_name}\r\n"
+        header_string << "Date: #{date_today}\r\n"
         header_string << "Connection: close}"
         
         if @resource.request.http_method != "HEAD"

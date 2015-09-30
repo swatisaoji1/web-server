@@ -1,14 +1,11 @@
 module WebServer
   module Response
     # Class to handle 500 errors
-    class ServerError < Base
+    class ServerError 
       attr_accessor :code_no
-      def initialize(resource, options={})
-      	super(resource)
+      def initialize(resource=nil, options={})
       	puts "initializing ServerError class"
-      	@file_path = resource.resolved_path
-	@content = nil
-	@code_no = 500
+      	@code_no = 500
       end
 
       def code
@@ -31,30 +28,25 @@ module WebServer
       def header
         header_string = ""
         header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
-        # TODO pick server and date from the common headers
-        header_string << "Server: Team C Swati and Harini\r\n"
-        header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}"
-        puts @resource.inspect
-        puts @resource.request.http_method.inspect
+        header_string << "Server: #{WebServer::Response::DEFAULT_HEADERS['Server']}\r\n"
+        header_string << "Date: #{WebServer::Response::DEFAULT_HEADERS['Date']}\r\n"
+        header_string << "Content-Length: #{body.bytesize}\r\n"
+        header_string << "\r\n" 
         
-        if @resource.request.http_method != "HEAD"
-          puts  body.bytesize
-          header_string << "Content-Length: #{body.bytesize}\r\n"
-          puts mime_type
-          header_string << "Content-Type: #{mime_type}\r\n"
-          header_string << "\r\n" 
-        end 
+        
       end
 
       def body   
-        response = ""
-        response << "<!DOCTYPE html>"
-        response << "<html>"
-        response << "<body>"
-        response << "<h1> 500 </h1>"
-        response << "</body>"
-        response << "</html>"
-        return response
+        body = ""
+        body << "<!DOCTYPE html>"
+        body << "<html>"
+        body << "<body>"
+        body << "<h1> #{@code_no}</h1>"
+        body << "<p> Error code : #{code}</p>"
+        body << "<p> Ops Server Fault  :( </p>"
+        body << "</body>"
+        body << "</html>"
+        return body
       end
 
     end

@@ -20,7 +20,6 @@ module WebServer
       
       def content
         make_body
-        puts @body
         header << @body
       end
       
@@ -28,9 +27,8 @@ module WebServer
       def header
         header_string = ""
         header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
-        # TODO pick server and date from the common headers
-        header_string << "Server: Team C Swati and Harini\r\n"
-        header_string << "Date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')}" 
+        header_string << "Server: #{get_server_name}\r\n"
+        header_string << "Date: #{date_today}\r\n"
         header_string << "Content-Length: #{@body.bytesize}\r\n"
         header_string << "\r\n" 
         header_string

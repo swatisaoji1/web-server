@@ -119,3 +119,137 @@
 127.0.1.1 - - Tue, 29 Sep 2015 20:00:11 PDT WebServer::Request DELETE /file1.txt HTTP/1.1 204 0
 127.0.1.1 - - Tue, 29 Sep 2015 23:05:17 PDT WebServer::Request PUT /todelete.txt HTTP/1.1 201 0
 127.0.1.1 - - Tue, 29 Sep 2015 23:06:03 PDT WebServer::Request DELETE /todelete.txt HTTP/1.1 204 0
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:49 PDT WebServer::Request GET / HTTP/1.1 200 3186
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:49 PDT WebServer::Request GET /js/holder.js HTTP/1.1 200 14727
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:49 PDT WebServer::Request GET /js/image-test.js HTTP/1.1 200 677
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:49 PDT WebServer::Request GET /images/sushi.jpg HTTP/1.1 200 30916
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:58 PDT WebServer::Request GET /images/really-big-image.png HTTP/1.1 200 6026885
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:58 PDT WebServer::Request GET /test/1.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:58 PDT WebServer::Request GET /test/2.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/3.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/4.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/5.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/7.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/8.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/9.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/10.json HTTP/1.1 200 14
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/2.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:08:59 PDT WebServer::Request GET /test/5.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/8.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/9.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/1.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/3.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/6.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/7.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/6.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/4.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:00 PDT WebServer::Request GET /test/10.json HTTP/1.1 200 14
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:06 PDT WebServer::Request GET / HTTP/1.1 200 3186
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:07 PDT WebServer::Request GET /js/holder.js HTTP/1.1 200 14727
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:08 PDT WebServer::Request GET /test/1.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:08 PDT WebServer::Request GET /test/3.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:08 PDT WebServer::Request GET /test/6.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:09 PDT WebServer::Request GET /test/7.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:15 PDT WebServer::Request GET /protected/ HTTP/1.1 401 146
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:21 PDT WebServer::Request GET /cgi-bin/perl_env HTTP/1.1 200 3903
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:25 PDT WebServer::Request GET /cgi-bin/basic_args.sh HTTP/1.1 200 203
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:31 PDT WebServer::Request GET /test/1.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:31 PDT WebServer::Request GET /test/3.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:31 PDT WebServer::Request GET /test/6.json HTTP/1.1 200 13
+127.0.1.1 - - Tue, 29 Sep 2015 23:09:31 PDT WebServer::Request GET /test/7.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:03:40 PDT WebServer::Request GET / HTTP/1.1 200 3186
+127.0.1.1 - - Wed, 30 Sep 2015 00:03:40 PDT WebServer::Request GET /js/image-test.js HTTP/1.1 200 677
+127.0.1.1 - - Wed, 30 Sep 2015 00:03:41 PDT WebServer::Request GET /js/holder.js HTTP/1.1 200 14727
+127.0.1.1 - - Wed, 30 Sep 2015 00:03:41 PDT WebServer::Request GET /images/sushi.jpg HTTP/1.1 200 30916
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:10 PDT WebServer::Request GET /images/really-big-image.png HTTP/1.1 200 6026885
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:10 PDT WebServer::Request GET /test/1.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:11 PDT WebServer::Request GET /test/2.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:11 PDT WebServer::Request GET /test/3.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:11 PDT WebServer::Request GET /test/4.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:11 PDT WebServer::Request GET /test/5.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:11 PDT WebServer::Request GET /test/6.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:11 PDT WebServer::Request GET /test/8.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:11 PDT WebServer::Request GET /test/9.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:11 PDT WebServer::Request GET /test/10.json HTTP/1.1 200 14
+127.0.1.1 - - Wed, 30 Sep 2015 00:05:12 PDT WebServer::Request GET /test/7.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:43 PDT WebServer::Request GET / HTTP/1.1 200 3186
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:43 PDT WebServer::Request GET /js/holder.js HTTP/1.1 200 14727
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:43 PDT WebServer::Request GET /js/image-test.js HTTP/1.1 200 677
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:43 PDT WebServer::Request GET /images/sushi.jpg HTTP/1.1 200 30916
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:44 PDT WebServer::Request GET /favicon.ico HTTP/1.1 404 147
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:45 PDT WebServer::Request GET /test/1.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:45 PDT WebServer::Request GET /test/2.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:46 PDT WebServer::Request GET /test/3.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:46 PDT WebServer::Request GET /test/4.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:46 PDT WebServer::Request GET /test/5.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:46 PDT WebServer::Request GET /test/6.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:46 PDT WebServer::Request GET /test/7.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:46 PDT WebServer::Request GET /test/8.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:46 PDT WebServer::Request GET /test/9.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:46 PDT WebServer::Request GET /test/10.json HTTP/1.1 200 14
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:47 PDT WebServer::Request GET /images/really-big-image.png HTTP/1.1 200 6026885
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:53 PDT WebServer::Request GET /protected/ HTTP/1.1 401 146
+127.0.1.1 - - Wed, 30 Sep 2015 00:06:58 PDT WebServer::Request GET /protected/ HTTP/1.1 401 146
+127.0.1.1 - - Wed, 30 Sep 2015 00:07:03 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - - Wed, 30 Sep 2015 00:07:06 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - - Wed, 30 Sep 2015 00:07:10 PDT WebServer::Request GET /cgi-bin/perl_env HTTP/1.1 200 4022
+127.0.1.1 - - Wed, 30 Sep 2015 00:07:12 PDT WebServer::Request GET /cgi-bin/basic_args.sh HTTP/1.1 200 203
+127.0.1.1 - - Wed, 30 Sep 2015 00:12:55 PDT WebServer::Request GET /todelete.txt HTTP/1.1 404 147
+127.0.1.1 - - Wed, 30 Sep 2015 00:13:01 PDT WebServer::Request POST /todelete.txt HTTP/1.1 404 147
+127.0.1.1 - - Wed, 30 Sep 2015 00:13:14 PDT WebServer::Request PUT /todelete.txt HTTP/1.1 201 0
+127.0.1.1 - - Wed, 30 Sep 2015 00:13:18 PDT WebServer::Request PUT /todelete.txt HTTP/1.1 201 0
+127.0.1.1 - - Wed, 30 Sep 2015 00:13:28 PDT WebServer::Request PUT /todelete.txt HTTP/1.1 201 0
+127.0.1.1 - - Wed, 30 Sep 2015 00:13:42 PDT WebServer::Request PUT /todelete.txt HTTP/1.1 201 0
+127.0.1.1 - - Wed, 30 Sep 2015 00:13:58 PDT WebServer::Request DELETE /todelete.txt HTTP/1.1 204 0
+127.0.1.1 - - Wed, 30 Sep 2015 00:14:06 PDT WebServer::Request DELETE /todelete.txt HTTP/1.1 204 0
+127.0.1.1 - - Wed, 30 Sep 2015 00:14:10 PDT WebServer::Request HEAD /todelete.txt HTTP/1.1 404 147
+127.0.1.1 - - Wed, 30 Sep 2015 00:15:49 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - - Wed, 30 Sep 2015 00:27:30 PDT WebServer::Request GET / HTTP/1.1 200 3186
+127.0.1.1 - - Wed, 30 Sep 2015 00:31:06 PDT WebServer::Request DELETE /todelete.txt HTTP/1.1 204 0
+127.0.1.1 - - Wed, 30 Sep 2015 00:31:17 PDT WebServer::Request GET /todelete.txt HTTP/1.1 404 147
+127.0.1.1 - - Wed, 30 Sep 2015 00:38:55 PDT WebServer::Request GET / HTTP/1.1 200 3186
+127.0.1.1 - - Wed, 30 Sep 2015 00:42:47 PDT WebServer::Request POST / HTTP/1.1 200 3186
+127.0.1.1 - - Wed, 30 Sep 2015 00:46:07 PDT WebServer::Request POST / HTTP/1.1 200 3186
+127.0.1.1 - - Wed, 30 Sep 2015 00:47:16 PDT WebServer::Request PUT /dshdfg.txt HTTP/1.1 201 0
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:28 PDT WebServer::Request GET / HTTP/1.1 200 3186
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:29 PDT WebServer::Request GET /js/holder.js HTTP/1.1 200 14727
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:29 PDT WebServer::Request GET /js/image-test.js HTTP/1.1 200 677
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:29 PDT WebServer::Request GET /images/sushi.jpg HTTP/1.1 200 30916
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:32 PDT WebServer::Request GET /test/1.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:32 PDT WebServer::Request GET /test/2.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:32 PDT WebServer::Request GET /test/3.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:32 PDT WebServer::Request GET /test/4.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:32 PDT WebServer::Request GET /test/5.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:32 PDT WebServer::Request GET /test/6.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:32 PDT WebServer::Request GET /test/7.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:32 PDT WebServer::Request GET /test/8.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:33 PDT WebServer::Request GET /test/9.json HTTP/1.1 200 13
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:33 PDT WebServer::Request GET /test/10.json HTTP/1.1 200 14
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:33 PDT WebServer::Request GET /images/really-big-image.png HTTP/1.1 200 6026885
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:38 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:43 PDT WebServer::Request GET /cgi-bin/perl_env HTTP/1.1 200 4052
+127.0.1.1 - - Wed, 30 Sep 2015 01:06:46 PDT WebServer::Request GET /cgi-bin/basic_args.sh HTTP/1.1 200 204
+127.0.1.1 - - Wed, 30 Sep 2015 01:09:58 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - - Wed, 30 Sep 2015 01:10:19 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - Wed, 30 Sep 2015 01:29:48 PDT WebServer::Request GET / HTTP/1.1 200 3186
+127.0.1.1 - Wed, 30 Sep 2015 01:29:48 PDT WebServer::Request GET /js/holder.js HTTP/1.1 200 14727
+127.0.1.1 - Wed, 30 Sep 2015 01:29:49 PDT WebServer::Request GET /js/image-test.js HTTP/1.1 200 677
+127.0.1.1 - Wed, 30 Sep 2015 01:29:49 PDT WebServer::Request GET /images/sushi.jpg HTTP/1.1 200 30916
+127.0.1.1 - Wed, 30 Sep 2015 01:29:51 PDT WebServer::Request GET /test/1.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:51 PDT WebServer::Request GET /test/2.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:52 PDT WebServer::Request GET /test/3.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:52 PDT WebServer::Request GET /test/4.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:52 PDT WebServer::Request GET /test/5.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:52 PDT WebServer::Request GET /test/6.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:52 PDT WebServer::Request GET /test/7.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:52 PDT WebServer::Request GET /test/8.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:52 PDT WebServer::Request GET /test/9.json HTTP/1.1 200 13
+127.0.1.1 - Wed, 30 Sep 2015 01:29:52 PDT WebServer::Request GET /test/10.json HTTP/1.1 200 14
+127.0.1.1 - Wed, 30 Sep 2015 01:29:53 PDT WebServer::Request GET /images/really-big-image.png HTTP/1.1 200 6026885
+127.0.1.1 - Wed, 30 Sep 2015 01:29:56 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - Wed, 30 Sep 2015 01:30:02 PDT WebServer::Request GET /cgi-bin/perl_env HTTP/1.1 200 4052
+127.0.1.1 - Wed, 30 Sep 2015 01:30:05 PDT WebServer::Request GET /cgi-bin/basic_args.sh HTTP/1.1 200 204
+127.0.1.1 - Wed, 30 Sep 2015 01:33:10 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - Wed, 30 Sep 2015 01:33:58 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - Wed, 30 Sep 2015 01:36:42 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121
+127.0.1.1 - Wed, 30 Sep 2015 01:38:27 PDT WebServer::Request GET /protected/ HTTP/1.1 403 121

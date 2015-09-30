@@ -13,14 +13,12 @@ module WebServer
       @supported_verbs = ["GET", "HEAD", "POST", "PUT", "DELETE"]
       @current_index = 0
       @if_modified_since = nil
-      #request_content = String.new("POST / HTTP/1.1\r\nHost: localhost\r\nContent-Length: 40\n  this is part of previous header\r\n \r\n?param1=one&param2=swati+patel")
       @request_content = socket
-      puts "request no #{@@request_no}"
-      puts @request_content
-    
+
+      dump_request
+
       @request_content_array = Array.new
       @length_con = 0
-      puts "Length of request: #{@request_content.length}"
       if @request_content.length > 0
         @request_content.each_line do |line|
           @request_content_array.push(line)
@@ -28,17 +26,10 @@ module WebServer
         @length_con = @request_content_array.length
         parse
       end 
+      
     end
 
-    # I've added this as a convenience method, see TODO (This is called from the logger
-    # to obtain information during server logging)
-    def user_id
-      # TODO: This is the userid of the person requesting the document as determined by 
-      # HTTP authentication. The same value is typically provided to CGI scripts in the 
-      # REMOTE_USER environment variable. If the status code for the request (see below) 
-      # is 401, then this value should not be trusted because the user is not yet authenticated.
-      '-'
-    end
+
 
     # Parse the request from the socket - Note that this method takes no
     # parameters
@@ -97,7 +88,6 @@ module WebServer
       if @current_index < @request_content_array.length
           newarray = @request_content_array[@current_index..-1].collect{|x| x.lstrip}
           @body = newarray.join()
-          puts @body
           @body.strip!
           
         # if the method is post parameters are in the body
@@ -125,9 +115,14 @@ module WebServer
       param_pairs.each do |pair|
         @params[pair.split('=').first] = pair.split('=').last
       end
-      puts @params
     end
  
-    
+    def dump_request
+      puts "request no #{@@request_no}"
+      puts "-------------Request Dump----------------------"
+      puts @request_content
+      puts "-----------------------------------------------"
+      puts "Length of request: #{@request_content.length}"
+    end
   end
 end

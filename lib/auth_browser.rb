@@ -8,9 +8,7 @@ module WebServer
     def initialize(res, access_file_name, doc_root)
       @res = res
       @path = res.resolved_path
-      puts res.resolved_path
       @uri = res.final_uri
-      puts res.final_uri
       @access_file = access_file_name
       @doc_root = doc_root
       @access_file_path = nil
@@ -47,7 +45,6 @@ module WebServer
         ht = Htaccess.new(content)
         user = Users.new(ht.auth_user_file)
         authorized = user.valid?(user_pass[0], user_pass[1])
-        puts authorized
         return authorized
       end
       false

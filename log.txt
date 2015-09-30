@@ -1,4 +1,0 @@
-127.0.1.1 - - Sat, 26 Sep 2015 15:11:02 PDT WebServer::Request GET / HTTP/1.1 200 3185
-127.0.1.1 - - Sat, 26 Sep 2015 15:11:02 PDT WebServer::Request GET /js/image-test.js HTTP/1.1 200 677
-127.0.1.1 - - Sat, 26 Sep 2015 15:11:02 PDT WebServer::Request GET /js/holder.js HTTP/1.1 200 14727
-127.0.1.1 - - Sat, 26 Sep 2015 15:11:02 PDT WebServer::Request GET /images/sushi.jpg HTTP/1.1 200 38852

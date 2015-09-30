@@ -1,3 +1,4 @@
+
 module WebServer
   module Response
     # Provides the base functionality for all HTTP Responses 
@@ -14,6 +15,15 @@ module WebServer
         @code_no = 200
       end
 
+      def get_server_name
+        WebServer::Response::DEFAULT_HEADERS['Server']
+      end
+        
+        
+      def date_today
+        WebServer::Response::DEFAULT_HEADERS['Date']
+      end
+
       def last_modified
         File.mtime(@file_path).strftime('%a, %e %b %Y %H:%M:%S %Z')
       end
@@ -25,18 +35,10 @@ module WebServer
           0
         end 
       end
-
-      def to_s
-        
-      end
-
-      def message
-      end
+    
 
       def content_length
-        length = @body.length
-        puts length
-        return @body.length
+        @body.length
       end
       
       def res_exists?(r_name)
@@ -49,7 +51,6 @@ module WebServer
       
       def create_body
         body = ''
-        # res_file = @resource.get_resource
         res_file = @resource.resolved_path
         puts res_file
         f = File.open(res_file, "r")
