@@ -86,10 +86,9 @@ module WebServer
 
     def parse_body
       if @current_index < @request_content_array.length
-          newarray = @request_content_array[@current_index..-1].collect{|x| x.lstrip}
-          @body = newarray.join()
-          @body.strip!
-          
+        newarray = @request_content_array[@current_index..-1].collect{|x| x.lstrip}
+        @body = newarray.join()
+        @body.strip!
         # if the method is post parameters are in the body
         if @http_method == "POST" && @body.length > 0
            parse_params(@body)
@@ -101,7 +100,6 @@ module WebServer
     end
     
     def modified_since
-      
       if @headers.has_key?('IF_MODIFIED_SINCE')
         Date.parse(@headers['IF_MODIFIED_SINCE'])
       end

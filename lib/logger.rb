@@ -13,23 +13,24 @@ module WebServer
     	@log_file = nil
     end
 
-   def log_file
-     @log_file ||= begin
-     dir = File.dirname(@log_file_path)
-     puts dir
-     if File.directory?(dir)
-       if File.exists?(@log_file_path)
-         File.open(@log_file_path,"a")
-       else
-         File.new(@log_file_path,"a")
-       end
-     else
-       FileUtils.mkdir_p(dir)
-       if File.exists?(@log_file_path) 
-         File.open(@log_file_path,"a")
-       else
-       File.new(@log_file_path,"a")
-      end
+    def log_file
+      @log_file ||= begin
+      dir = File.dirname(@log_file_path)
+     
+      if File.directory?(dir)
+        if File.exists?(@log_file_path)
+          File.open(@log_file_path,"a")
+        else
+          File.new(@log_file_path,"a")
+        end
+     
+      else
+        FileUtils.mkdir_p(dir)
+        if File.exists?(@log_file_path) 
+          File.open(@log_file_path,"a")
+        else
+          File.new(@log_file_path,"a")
+        end
       end
   	end
    end

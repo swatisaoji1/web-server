@@ -62,11 +62,21 @@ module WebServer
       end  
 
       def self.handle_cgi(path, resource)
-        script_output = IO.popen(path).read # pass param
+        # create [ENV, path, arg1, arg2, arg3 ...]
+        arguments = [ENV, path].concat make_param_array(resource)
+        
+        #passing arguments with path to popen
+        script_output = IO.popen(arguments).read # pass param
         responce_obj = Response::OK.new(resource)
         responce_obj.mime_type="text/html"
         responce_obj.body=script_output
         return responce_obj
+      end
+      
+      def self.make_param_array(resource)
+        param_hash = resource.request.params
+        param_array = param_hash.values
+        param_array
       end
       
       def self.handle_normal_access(full_path, res)
