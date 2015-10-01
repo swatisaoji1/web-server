@@ -1,6 +1,6 @@
 module WebServer
   class Resource
-    attr_reader :request, :conf, :mimes , :resolved_path, :final_uri
+    attr_accessor :request, :conf, :mimes , :resolved_path, :final_uri
 
     def initialize(request, httpd_conf, mimes)
       @request = request 

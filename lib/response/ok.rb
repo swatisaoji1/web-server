@@ -13,6 +13,9 @@ module WebServer
      
       
       def mime_type
+        if @resource.resolved_path.include?('cgi-bin')
+          return "text/html"
+        end
         @mime_type = @resource.mimes.for_extension(File.extname(@file_path).delete('.'))
       end
       
@@ -23,7 +26,12 @@ module WebServer
       
       def content
         make_body
-        header << @body
+        content = ""
+        if @resource.resolved_path.include?('cgi-bin')
+          first_line << @body
+        else    
+          first_line << header << @body 
+        end
       end
       
        def expiry
@@ -34,10 +42,12 @@ module WebServer
          File.atime(@file_path).strftime('%a, %e %b %Y %H:%M:%S %Z')
        end
       
+      def first_line
+        "HTTP/1.1 #{@code_no} #{code}\r\n"
+      end
       # create header
       def header
         header_string = ""
-        header_string << "HTTP/1.1 #{@code_no} #{code}\r\n"
         # TODO pick server and date from the common headers
         header_string << "Server: #{get_server_name}\r\n"
         header_string << "Date: #{date_today}\r\n"
