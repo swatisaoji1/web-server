@@ -45,7 +45,14 @@ module WebServer
 	    date = Time.now.strftime('%a, %e %b %Y %H:%M:%S %Z')
       ip = IPSocket.getaddress(Socket.gethostname)
        #TODO check for remote logger
-    	log_file.write(ip+" - "+date+" "+"#{request.class} #{request.http_method} #{request.uri} #{request.version} #{response.code_no} #{response.get_body_size}\n")
+      log_file.write(ip+" ") unless ip.nil?
+      log_file.write(date+" ") unless date.nil?
+      log_file.write("#{request.class} ") unless request.class.nil?
+      log_file.write("#{request.http_method} ") unless request.http_method.nil?
+      log_file.write("#{request.uri} ") unless request.uri.nil?
+      log_file.write("#{request.version} ") unless request.version.nil?
+      log_file.write("#{response.code_no} ") unless response.code_no.nil?
+      log_file.write("#{response.get_body_size}\n") unless response.get_body_size.nil? 
     end
 
     # Allow the consumer of this class to flush and close the log file

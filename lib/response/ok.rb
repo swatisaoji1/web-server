@@ -6,7 +6,6 @@ module WebServer
       
       def initialize(resource, options={})
         super(resource)
-        puts "initializing ok class"
         @body = nil
         @mime_type = "text/html"
         @code_no = 200

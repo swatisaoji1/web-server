@@ -61,7 +61,6 @@ module WebServer
         @request_content_array.push(line)
       end
       @length_con = @request_content_array.length
-      puts "request array length #{@length_con}"
     end
 
   

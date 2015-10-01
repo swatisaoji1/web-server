@@ -48,6 +48,7 @@ module WebServer
         @body << "<!DOCTYPE html>"
         @body << "<html>"
         @body << "<body>"
+        @body << "<h1> #{@code_no}</h1>"
         @body << "<p> Error code : #{code}</p>"
         @body << "<p> Sorry you are not authorized to access this page </p>"
         @body << "</html>"

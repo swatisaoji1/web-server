@@ -4,7 +4,6 @@ module WebServer
 
     def initialize(request, httpd_conf, mimes)
       @request = request 
-      puts "path is #{request.uri}"
       @path = request.uri.dup   
       @conf = httpd_conf
       @mimes = mimes
